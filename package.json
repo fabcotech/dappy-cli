@@ -1,0 +1,22 @@
+{
+  "name": "dappy-dev",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "directories": {},
+  "scripts": {
+    "start": "node index",
+    "start:watch": "node index --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabcotech/dappy-dev.git"
+  },
+  "author": "Raphaël Fabre",
+  "license": "MIT",
+  "homepage": "https://github.com/fabcotech/dappy-dev",
+  "dependencies": {
+    "grpc": "1.16.0",
+    "rchain-api": "git+https://github.com/rchain-community/RChain-API.git"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "manifest": {
+    "title": "My dapp",
+    "subtitle": "My cool dapp",
+    "description": "Cool dapp to handle grosseries with friends",
+    "author": "Willy",
+    "cssLibraries": ["bulma@0.x"],
+    "jsLibraries": ["react@latest", "react-dom@latest", "react-redux@5.0.7"],
+    "jsPath": "dist/bundle.min.js",
+    "cssPath": "dist/bundle.min.css"
+  },
+  "options": {
+    "platform": "rchain",
+    "host": "localhost",
+    "port": "40401",
+    "channel_id": "mychannel"
+  }
+}
