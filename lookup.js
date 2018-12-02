@@ -4,18 +4,6 @@ const { RNode, RHOCore } = require("rchain-api");
 
 const configFile = fs.readFileSync("dappy.config.json", "utf8");
 
-function bufAsHex(prop, val) {
-  if (prop === "data" && "type" in this && this.type === "Buffer") {
-    return Buffer.from(val).toString("hex");
-  }
-  return val;
-}
-
-function logged(obj /*: mixed */, label /*: ?string */) {
-  console.log(label, JSON.stringify(obj, bufAsHex, 2));
-  return obj;
-}
-
 console.log(`
 :::::::::      :::     :::::::::  :::::::::  :::   ::: 
 :+:    :+:   :+: :+:   :+:    :+: :+:    :+: :+:   :+:  
@@ -64,11 +52,7 @@ rchain
     for (let i = 0; i < blockResults.length; i += 1) {
       const block = blockResults[i];
       for (let j = 0; j < block.postBlockData.length; j += 1) {
-        const data = JSON.stringify(
-          RHOCore.toRholang(block.postBlockData[j]),
-          bufAsHex,
-          2
-        );
+        const data = RHOCore.toRholang(block.postBlockData[j]);
         if (data) {
           log(
             `Received value from block n°${block.block.blockNumber}, ${new Date(
