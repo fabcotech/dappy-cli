@@ -174,11 +174,11 @@ const createManifest = () => {
       phloLimit: { value: 100000 }
     })
     .then(deployMessage => {
-      console.log("doDeploy result:", deployMessage);
+      log("doDeploy result:", deployMessage);
       return rchain.createBlock();
     })
     .then(blockCreated => {
-      console.log("block created");
+      log("block created");
       if (!WATCH) {
         process.exit();
       }

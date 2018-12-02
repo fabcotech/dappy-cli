@@ -1,6 +1,8 @@
 ## dappy-dev
 
-Node JS dev kit to build and livepush dappy manifests to the RChain blockchain.
+Node JS dev kit to build and livepush Dappy manifests to the RChain blockchain.
+
+dappy-node bundles some general information about your dapp and the ressources of your dapp (js, css), puts them all in one big JSON file, and converts it to a base 64. This resulting long string can then be pushed to the blockchain, often stored in a smart contract. Then on the client side, someone you just have to share the RChain channel you pushed your code onto, and Dappy users will be able to easily load and execute your dapp code in Dappy.
 
 Requisite: have a running RChain node.
 
@@ -13,7 +15,8 @@ Scripts to add in your package.json :
   "dappy-dev:init": "node ./node_modules/dappy-dev/index.js --init",
   "dappy-dev:build": "node ./node_modules/dappy-dev/index.js --build",
   "dappy-dev:push": "node ./node_modules/dappy-dev/index.js",
-  "dappy-dev:watch": "node ./node_modules/dappy-dev/index.js --watch"
+  "dappy-dev:watch": "node ./node_modules/dappy-dev/index.js --watch",
+  "dappy-dev:lookup": "node ./node_modules/dappy-dev/lookup.js"
 }
 ```
 
@@ -28,7 +31,7 @@ To init the `dappy.config.json` file with default values run `npm run dappy-dev:
   "manifest": {
     "title": "My dapp", // Title of your dapp
     "subtitle": "My cool dapp", // Subtitle of your dapp
-    "description": "Cool dapp to handle grosseries with friends", // Description of your dapp
+    "description": "Cool dapp you should try out !", // Description of your dapp
     "author": "Willy", // Author, likely you
     "cssLibraries": ["bulma@0.x"], // css libraries your dapp relies on, and you don't want to include in your css bundle
     "jsLibraries": [
@@ -41,7 +44,6 @@ To init the `dappy.config.json` file with default values run `npm run dappy-dev:
   },
   "options": {
     "platform": "rchain", // leave "rchain" for now since it's the only platform supported
-    "livePush": true, // leave "rchain" for now since it's the only platform supported
     "host": "localhost", // host of the RChain node you want to connect to
     "port": "40401", // port of the RChain node you want to connect to
     "channel_id": "mychannel" // public channel you want to push your manifest to (on the blockchain, ex: "mychannel" will push manifest to @"mychannel"!(*manifest)
