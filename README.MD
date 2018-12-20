@@ -12,8 +12,8 @@ Scripts to add in your package.json :
 
 ```json
 {
-  "dappy-dev:init": "node ./node_modules/dappy-dev/index.js --init",
-  "dappy-dev:build": "node ./node_modules/dappy-dev/index.js --build",
+  "dappy-dev:init": "node ./node_modules/dappy-dev/init.js",
+  "dappy-dev:build": "node ./node_modules/dappy-dev/build.js",
   "dappy-dev:push": "node ./node_modules/dappy-dev/index.js",
   "dappy-dev:watch": "node ./node_modules/dappy-dev/index.js --watch",
   "dappy-dev:lookup": "node ./node_modules/dappy-dev/lookup.js"
@@ -46,7 +46,7 @@ To init the `dappy.config.json` file with default values run `npm run dappy-dev:
     "platform": "rchain", // leave "rchain" for now since it's the only platform supported
     "host": "localhost", // host of the RChain node you want to connect to
     "port": "40401", // port of the RChain node you want to connect to
-    "channel_id": "mychannel" // public channel you want to push your manifest to (on the blockchain, ex: "mychannel" will push manifest to @"mychannel"!(*manifest)
+    "private_key": "0x....." // Ethereum / Rchain private key, with or without '0x' prefix, manifest will be pushed to the corresponding public key
   }
 }
 ```

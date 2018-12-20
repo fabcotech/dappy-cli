@@ -16,7 +16,11 @@
   "license": "MIT",
   "homepage": "https://github.com/fabcotech/dappy-dev",
   "dependencies": {
+    "eth-lib": "0.2.8",
+    "ethereumjs-util": "6.0.0",
+    "ethers": "4.0.20",
     "grpc": "1.16.0",
-    "rchain-api": "git+https://github.com/rchain-community/RChain-API.git"
+    "rchain-api": "git+https://github.com/rchain-community/RChain-API.git",
+    "secp256k1": "3.5.2"
   }
 }

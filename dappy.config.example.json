@@ -13,6 +13,6 @@
     "platform": "rchain",
     "host": "localhost",
     "port": "40401",
-    "channel_id": "mychannel"
+    "private_key": "Ethereum / Rchain private key, with or without '0x' prefix"
   }
 }

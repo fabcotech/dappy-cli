@@ -1,25 +1,26 @@
 const fs = require("fs");
 const grpc = require("grpc");
 const { RNode, RHOCore } = require("rchain-api");
+const privateToPublic = require("ethereumjs-util").privateToPublic;
+
+const recoverPublicKey = require("./crypto").recoverPublicKey;
+const stringToKeccak256 = require("./crypto").stringToKeccak256;
+const addTrailing0x = require("./crypto").addTrailing0x;
+const logDappy = require("./utils").logDappy;
 
 const configFile = fs.readFileSync("dappy.config.json", "utf8");
-
-console.log(`
-:::::::::      :::     :::::::::  :::::::::  :::   ::: 
-:+:    :+:   :+: :+:   :+:    :+: :+:    :+: :+:   :+:  
-+:+    +:+  +:+   +:+  +:+    +:+ +:+    +:+  +:+ +:+    
-+#+    +:+ +#++:++#++: +#++:++#+  +#++:++#+    +#++:      
-+#+    +#+ +#+     +#+ +#+        +#+           +#+        
-#+#    #+# #+#     #+# #+#        #+#           #+#         
-#########  ###     ### ###        ###           ###          
-`);
 
 if (!configFile) {
   throw new Error("No config file");
 }
 
+logDappy();
+
 const log = a => {
   console.log(new Date().toISOString(), a);
+};
+const logError = a => {
+  console.error(new Date().toISOString(), a);
 };
 
 let config;
@@ -36,9 +37,12 @@ let rchain = RNode(grpc, {
   port: config.options.port
 });
 
-log("Will look for channel " + `@"${config.options.channel_id}"`);
+const privateKey = addTrailing0x(config.options.private_key);
+const publicKeyFromFile = privateToPublic(privateKey).toString("hex");
+
+log("Will look for channel " + `@"${publicKeyFromFile}"`);
 rchain
-  .listenForDataAtPublicName(config.options.channel_id)
+  .listenForDataAtPublicName(publicKeyFromFile)
   .then(blockResults => {
     if (!blockResults.length) {
       console.error("No block results");
@@ -59,15 +63,49 @@ rchain
               parseInt(block.block.timestamp, 10)
             ).toISOString()}`
           );
-          console.log(data);
+          try {
+            const splitted = data.substr(1, data.length - 2).split("____");
+            const manifest = splitted[0];
+            const signature = splitted[1];
+            const manifestHash = stringToKeccak256(manifest);
+            const publicKey = recoverPublicKey(signature, manifestHash);
+            if (publicKeyFromFile === publicKey) {
+              console.log("\n");
+              log("____");
+              log("\u2713\u2713\u2713 SIGNATURE VERIFIED \u2713\u2713\u2713");
+              log(
+                `Public key inferred from private key in the config file matches with the signature from the manifest on the blockchain`
+              );
+              log("Public key : " + publicKey);
+              log("____");
+            } else {
+              console.log("\n");
+              logError("____");
+              logError(
+                "\u274C\u274C\u274C SIGNATURE INVALID \u274C\u274C\u274C"
+              );
+              logError(
+                `  Public key inferred from private key in the config file does not match with the signature from the manifest on the blockchain`
+              );
+              log(
+                "Public key from private key in the config file : ",
+                publicKeyFromFile
+              );
+              log("Public key from the manifest : ", publicKey);
+              logError("____");
+            }
+            log("Manifest (base64): ");
+            console.log(splitted[0]);
+          } catch (e) {
+            logError("Unable to parse manifest and signature");
+            console.error(e);
+          }
           process.exit();
           return;
         }
       }
     }
 
-    console.log(
-      `Did not found any data for channel @"${config.options.channel_id}"`
-    );
+    logError(`Did not found any data for channel @"${publicKeyFromFile}"`);
     process.exit();
   });
