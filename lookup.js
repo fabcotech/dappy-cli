@@ -108,4 +108,8 @@ rchain
 
     logError(`Did not found any data for channel @"${publicKeyFromFile}"`);
     process.exit();
+  })
+  .catch(err => {
+    console.error(err);
+    process.exit();
   });

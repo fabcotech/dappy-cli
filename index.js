@@ -143,6 +143,10 @@ const createManifest = () => {
       if (!WATCH) {
         process.exit();
       }
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit();
     });
 };
 
