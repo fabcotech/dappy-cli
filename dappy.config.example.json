@@ -5,7 +5,7 @@
     "description": "Cool dapp to handle grosseries with friends",
     "author": "Willy",
     "cssLibraries": ["bulma@0.x"],
-    "jsLibraries": ["react@latest", "react-dom@latest", "react-redux@5.0.7"],
+    "jsLibraries": ["react@16.7.0", "react-dom@16.7.0", "react-redux@6.0.0"],
     "jsPath": "dist/bundle.min.js",
     "cssPath": "dist/bundle.min.css",
     "htmlPath": "dist/index.html"
