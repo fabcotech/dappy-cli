@@ -6,6 +6,7 @@ module.exports.checkConfigFile = config => {
     typeof config.manifest.description !== "string" ||
     typeof config.manifest.jsPath !== "string" ||
     typeof config.manifest.cssPath !== "string" ||
+    typeof config.manifest.htmlPath !== "string" ||
     !Array.isArray(config.manifest.cssLibraries) ||
     !Array.isArray(config.manifest.jsLibraries)
   ) {

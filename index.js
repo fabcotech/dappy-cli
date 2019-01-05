@@ -15,6 +15,7 @@ const configFile = fs.readFileSync("dappy.config.json", "utf8");
 
 let js;
 let css;
+let html;
 let base64;
 let jsonStringified;
 
@@ -68,6 +69,7 @@ if (WATCH) {
 const createManifest = () => {
   js = fs.readFileSync(config.manifest.jsPath, "utf8");
   css = fs.readFileSync(config.manifest.cssPath, "utf8");
+  html = fs.readFileSync(config.manifest.htmlPath, "utf8");
 
   jsonStringified = JSON.stringify({
     title: config.manifest.title,
@@ -78,6 +80,7 @@ const createManifest = () => {
     jsLibraries: config.manifest.jsLibraries,
     js: js,
     css: css,
+    html: html,
     version: "0.1"
   });
   base64 = Buffer.from(jsonStringified).toString("base64");
