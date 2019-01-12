@@ -14,6 +14,8 @@
     "platform": "rchain",
     "host": "localhost",
     "port": "40401",
-    "private_key": "Ethereum / Rchain private key, with or without '0x' prefix"
+    "channel": "public channel you want to push the code onto",
+    "private_key": "ED25519 private key",
+    "public_key": "ED25519 public key"
   }
 }

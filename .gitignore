@@ -59,3 +59,8 @@ typings/
 
 # next.js build output
 .next
+
+dappy.config.json
+manifest.base64
+manifest.json
+contract.rho

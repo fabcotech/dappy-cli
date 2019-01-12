@@ -6,7 +6,12 @@
   "directories": {},
   "scripts": {
     "start": "node index",
-    "start:watch": "node index --watch"
+    "start:watch": "node index --watch",
+    "dappy-dev:init": "node ./node_modules/dappy-dev/init.js",
+    "dappy-dev:build": "node ./node_modules/dappy-dev/build.js",
+    "dappy-dev:push": "node ./node_modules/dappy-dev/index.js",
+    "dappy-dev:watch": "node ./node_modules/dappy-dev/index.js --watch",
+    "dappy-dev:lookup": "node ./node_modules/dappy-dev/lookup.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +21,8 @@
   "license": "MIT",
   "homepage": "https://github.com/fabcotech/dappy-dev",
   "dependencies": {
+    "@grpc/proto-loader": "^0.3.0",
+    "ed25519": "0.0.4",
     "eth-lib": "0.2.8",
     "ethereumjs-util": "6.0.0",
     "ethers": "4.0.20",

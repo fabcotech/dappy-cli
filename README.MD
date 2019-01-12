@@ -14,7 +14,9 @@ Scripts to add in your package.json :
 {
   "dappy-dev:init": "node ./node_modules/dappy-dev/init.js",
   "dappy-dev:build": "node ./node_modules/dappy-dev/build.js",
+  "dappy-dev:build25519": "node ./node_modules/dappy-dev/build25519.js",
   "dappy-dev:push": "node ./node_modules/dappy-dev/index.js",
+  "dappy-dev:pushed25519": "node ./node_modules/dappy-dev/pushed25519.js",
   "dappy-dev:watch": "node ./node_modules/dappy-dev/index.js --watch",
   "dappy-dev:lookup": "node ./node_modules/dappy-dev/lookup.js"
 }
