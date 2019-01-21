@@ -194,7 +194,7 @@ new private in {
   });
 
   protoLoader
-    .load("./protobuf/CasperMessage.proto", {
+    .load(__dirname + "/protobuf/CasperMessage.proto", {
       keepCase: true,
       longs: String,
       enums: String,
