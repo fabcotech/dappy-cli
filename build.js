@@ -68,7 +68,7 @@ const createManifest = () => {
   base64 = Buffer.from(jsonStringified).toString("base64");
   const manifestHash = stringToKeccak256(base64);
   const signature = sign(privateKey, manifestHash);
-  base64 += `____${signature}`;
+  base64 += `;${signature}`;
   fs.writeFileSync("manifest.json", jsonStringified, err => {
     exit(i);
     if (err) {

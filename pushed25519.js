@@ -115,7 +115,11 @@ const createManifest = () => {
     version: "0.1"
   });
   base64 = Buffer.from(jsonStringified).toString("base64");
-
+  const signatureBase64 = ed25519.Sign(
+    Buffer.from(base64, "base64"),
+    Buffer.from(privateKey, "hex")
+  );
+  base64 = `${base64};${signatureBase64.toString("base64")}`;
   const codeWithoutRegistry = `
 new private in {
     private!("${base64}") |
@@ -242,7 +246,7 @@ new private in {
                   ).toISOString()}`
                 );
                 if (data === base64) {
-                  log("Data verified !");
+                  log("Data on chain verified !");
                 } else {
                   throw new Error("Data could not be verified");
                 }

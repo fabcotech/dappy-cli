@@ -65,10 +65,14 @@ const createManifest = () => {
     version: "0.1"
   });
   base64 = Buffer.from(jsonStringified).toString("base64");
-
+  const signatureBase64 = ed25519.Sign(
+    Buffer.from(base64, "base64"),
+    Buffer.from(privateKey, "hex")
+  );
+  base64 = `${base64};${signatureBase64.toString("base64")}`;
   const codeWithoutRegistry = `
 new private in {
-    private!("hello") |
+    private!("${base64}") |
     @"${channel}"!(*private)
 }`;
 
@@ -85,7 +89,7 @@ new private in {
   const toSign = hashHex + timestamp;
   log("toSign " + toSign);
   const signature = ed25519.Sign(
-    new Buffer(toSign, "hex"),
+    Buffer.from(toSign, "hex"),
     Buffer.from(privateKey, "hex")
   );
   if (

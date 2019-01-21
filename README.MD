@@ -48,7 +48,9 @@ To init the `dappy.config.json` file with default values run `npm run dappy-dev:
     "platform": "rchain", // leave "rchain" for now since it's the only platform supported
     "host": "localhost", // host of the RChain node you want to connect to
     "port": "40401", // port of the RChain node you want to connect to
-    "private_key": "0x....." // Ethereum / Rchain private key, with or without '0x' prefix, manifest will be pushed to the corresponding public key
+    "private_key": "abcdef" // ED25519 private key
+    "public_key": "abc" // ED25519 Corresponding public key
+    "channel": "mychannel" // Public name you wish to push the data onto, in this example: @"mychannel"
   }
 }
 ```
