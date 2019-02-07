@@ -212,6 +212,7 @@ new private in {
           return createBlock({}, client);
         })
         .then(() => {
+          console.log("channel", channel);
           return listenForDataAtName(
             { depth: 1000, name: { exprs: [{ g_string: channel }] } },
             client
@@ -225,7 +226,7 @@ new private in {
           const block = blocks.blockResults[0];
           return listenForDataAtName(
             {
-              depth: 1000,
+              depth: 100,
               name: block.postBlockData[block.postBlockData.length - 1]
             },
             client
