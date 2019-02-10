@@ -1,11 +1,11 @@
 const fs = require("fs");
 const grpc = require("grpc");
-const { RNode, RHOCore } = require("rchain-api");
-const privateToPublic = require("ethereumjs-util").privateToPublic;
+const protoLoader = require("@grpc/proto-loader");
 
-const recoverPublicKey = require("./crypto").recoverPublicKey;
-const stringToKeccak256 = require("./crypto").stringToKeccak256;
-const addTrailing0x = require("./crypto").addTrailing0x;
+const checkConfigFile = require("./utils").checkConfigFile;
+const createManifestFromFs = require("./utils").createManifestFromFs;
+const createBase64WithSignature = require("./utils").createBase64WithSignature;
+const listenForDataAtName = require("./rchain").listenForDataAtName;
 const logDappy = require("./utils").logDappy;
 
 const configFile = fs.readFileSync("dappy.config.json", "utf8");
@@ -32,73 +32,60 @@ try {
 
 log("Starting lookup");
 
-let rchain = RNode(grpc, {
-  host: config.options.host,
-  port: config.options.port
-});
+checkConfigFile(config);
 
-const privateKey = addTrailing0x(config.options.private_key);
-const publicKeyFromFile = privateToPublic(privateKey).toString("hex");
+let client;
 
-log("Will look for channel " + `@"${publicKeyFromFile}"`);
-rchain
-  .listenForDataAtPublicName(publicKeyFromFile)
-  .then(blockResults => {
-    if (!blockResults.length) {
-      console.error("No block results");
-      process.exit();
-    }
-    log(`${blockResults.length} block(s) found`);
-    const block = blockResults[0];
-    return rchain.listenForDataAtName(block.postBlockData.slice(-1).pop());
+log("host : " + config.options.host);
+log("port : " + config.options.port);
+
+const privateKey = config.options.private_key;
+const publicKey = config.options.public_key;
+const channel = config.options.channel;
+
+jsonStringified = createManifestFromFs(config);
+base64 = createBase64WithSignature(jsonStringified, privateKey);
+
+log("publicKey : " + publicKey);
+
+log("Will look for channel " + `@"${channel}"`);
+
+protoLoader
+  .load(__dirname + "/protobuf/CasperMessage.proto", {
+    keepCase: true,
+    longs: String,
+    enums: String,
+    defaults: true,
+    oneofs: true
   })
-  .then(blockResults => {
-    for (let i = 0; i < blockResults.length; i += 1) {
-      const block = blockResults[i];
+  .then(packageDefinition => {
+    const packageObject = grpc.loadPackageDefinition(packageDefinition);
+    client = new packageObject.coop.rchain.casper.protocol.DeployService(
+      `${config.options.host}:${config.options.port}`,
+      grpc.credentials.createInsecure()
+    );
+
+    return listenForDataAtName(
+      { depth: 1000, name: { exprs: [{ g_string: channel }] } },
+      client
+    );
+  })
+  .then(blocks => {
+    for (let i = 0; i < blocks.blockResults.length; i += 1) {
+      const block = blocks.blockResults[i];
       for (let j = 0; j < block.postBlockData.length; j += 1) {
-        const data = RHOCore.toRholang(block.postBlockData[j]);
+        const data = block.postBlockData[j].exprs[0].g_string;
         if (data) {
           log(
             `Received value from block n°${block.block.blockNumber}, ${new Date(
               parseInt(block.block.timestamp, 10)
             ).toISOString()}`
           );
-          try {
-            const splitted = data.substr(1, data.length - 2).split("____");
-            const manifest = splitted[0];
-            const signature = splitted[1];
-            const manifestHash = stringToKeccak256(manifest);
-            const publicKey = recoverPublicKey(signature, manifestHash);
-            if (publicKeyFromFile === publicKey) {
-              console.log("\n");
-              log("____");
-              log("\u2713\u2713\u2713 SIGNATURE VERIFIED \u2713\u2713\u2713");
-              log(
-                `Public key inferred from private key in the config file matches with the signature from the manifest on the blockchain`
-              );
-              log("Public key : " + publicKey);
-              log("____");
-            } else {
-              console.log("\n");
-              logError("____");
-              logError(
-                "\u274C\u274C\u274C SIGNATURE INVALID \u274C\u274C\u274C"
-              );
-              logError(
-                `  Public key inferred from private key in the config file does not match with the signature from the manifest on the blockchain`
-              );
-              log(
-                "Public key from private key in the config file : ",
-                publicKeyFromFile
-              );
-              log("Public key from the manifest : ", publicKey);
-              logError("____");
-            }
-            log("Manifest (base64): ");
-            console.log(splitted[0]);
-          } catch (e) {
-            logError("Unable to parse manifest and signature");
-            console.error(e);
+          log("value is : " + data.substr(0, 20) + "...");
+          if (data === base64) {
+            log("Data on chain verified !");
+          } else {
+            throw new Error("Data could not be verified");
           }
           process.exit();
           return;
@@ -106,10 +93,6 @@ rchain
       }
     }
 
-    logError(`Did not found any data for channel @"${publicKeyFromFile}"`);
-    process.exit();
-  })
-  .catch(err => {
-    console.error(err);
-    process.exit();
+    log(`Did not found any data for channel @"${config.options.channel_id}"`);
+    throw new Error("Not found");
   });

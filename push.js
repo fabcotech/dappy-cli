@@ -6,50 +6,16 @@ const ed25519 = require("ed25519");
 
 const checkConfigFile = require("./utils").checkConfigFile;
 const logDappy = require("./utils").logDappy;
+const createManifestFromFs = require("./utils").createManifestFromFs;
+const createBase64WithSignature = require("./utils").createBase64WithSignature;
+const doDeploy = require("./rchain").doDeploy;
+const listenForDataAtName = require("./rchain").listenForDataAtName;
+const createBlock = require("./rchain").createBlock;
 
 const WATCH = !!process.argv.find(a => a === "--watch");
 
 const configFile = fs.readFileSync("dappy.config.json", "utf8");
 
-const doDeploy = (deployData, client) => {
-  return new Promise((resolve, reject) => {
-    client.DoDeploy(deployData, function(err) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
-  });
-};
-
-const listenForDataAtName = (options, client) => {
-  return new Promise((resolve, reject) => {
-    client.listenForDataAtName(options, function(err, blocks) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(blocks);
-      }
-    });
-  });
-};
-
-const createBlock = (options, client) => {
-  return new Promise((resolve, reject) => {
-    client.createBlock(options, function(err) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
-  });
-};
-
-let js;
-let css;
-let html;
 let base64;
 let jsonStringified;
 
@@ -72,11 +38,8 @@ try {
 
 checkConfigFile(config);
 
-let rchain;
-const clock = () => new Date();
-
-log("host:" + config.options.host);
-log("port:" + config.options.port);
+log("host : " + config.options.host);
+log("port : " + config.options.port);
 
 const privateKey = config.options.private_key;
 const publicKey = config.options.public_key;
@@ -98,33 +61,10 @@ if (WATCH) {
 }
 
 const createManifest = () => {
-  js = fs.readFileSync(config.manifest.jsPath, "utf8");
-  css = fs.readFileSync(config.manifest.cssPath, "utf8");
-  html = fs.readFileSync(config.manifest.htmlPath, "utf8");
+  jsonStringified = createManifestFromFs(config);
+  base64 = createBase64WithSignature(jsonStringified, privateKey);
 
-  jsonStringified = JSON.stringify({
-    title: config.manifest.title,
-    subtitle: config.manifest.subtitle,
-    author: config.manifest.author,
-    description: config.manifest.description,
-    cssLibraries: config.manifest.cssLibraries,
-    jsLibraries: config.manifest.jsLibraries,
-    js: js,
-    css: css,
-    html: html,
-    version: "0.1"
-  });
-  base64 = Buffer.from(jsonStringified).toString("base64");
-  const signatureBase64 = ed25519.Sign(
-    Buffer.from(base64, "base64"),
-    Buffer.from(privateKey, "hex")
-  );
-  base64 = `${base64};${signatureBase64.toString("base64")}`;
-  const codeWithoutRegistry = `
-new private in {
-    private!("${base64}") |
-    @"${channel}"!(*private)
-}`;
+  const codeWithoutRegistry = `@"${channel}"!!("${base64}")`;
 
   var hash = crypto
     .createHash("sha256")
@@ -156,21 +96,21 @@ new private in {
   }
 
   const deployData = {
-    user: publicKey,
+    // user: publicKey,
     term: codeWithoutRegistry,
     timestamp,
-    sig: signature.toString("hex"),
-    sigAlgorithm: "ed25519",
-    from: "",
-    phloPrice: { value: 1 },
-    phloLimit: { value: 1000000 },
-    nonce: 0
+    /* sig: signature.toString("hex"),
+    sigAlgorithm: "ed25519", */
+    from: "0x1",
+    nonce: 0,
+    phloPrice: 1,
+    phloLimit: 1000000
   };
-  const deployDataOk = {
+  /* const deployDataOk = {
     ...deployData,
     user: Buffer.from(deployData.user, "hex"),
     sig: Buffer.from(deployData.sig, "hex")
-  };
+  }; */
 
   fs.writeFileSync("manifest.json", jsonStringified, err => {
     exit(i);
@@ -207,28 +147,13 @@ new private in {
         `${config.options.host}:${config.options.port}`,
         grpc.credentials.createInsecure()
       );
-      doDeploy(deployDataOk, client)
+      doDeploy(deployData, client)
         .then(() => {
           return createBlock({}, client);
         })
         .then(() => {
-          console.log("channel", channel);
           return listenForDataAtName(
             { depth: 1000, name: { exprs: [{ g_string: channel }] } },
-            client
-          );
-        })
-        .then(blocks => {
-          log("First call " + blocks.length);
-          if (!blocks.blockResults.length) {
-            throw new Error("No blocks found");
-          }
-          const block = blocks.blockResults[0];
-          return listenForDataAtName(
-            {
-              depth: 100,
-              name: block.postBlockData[block.postBlockData.length - 1]
-            },
             client
           );
         })
@@ -246,6 +171,7 @@ new private in {
                     parseInt(block.block.timestamp, 10)
                   ).toISOString()}`
                 );
+                log("value is : " + data.substr(0, 20) + "...");
                 if (data === base64) {
                   log("Data on chain verified !");
                 } else {

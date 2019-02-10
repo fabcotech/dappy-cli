@@ -4,14 +4,13 @@ var ed25519 = require("ed25519");
 
 const checkConfigFile = require("./utils").checkConfigFile;
 const logDappy = require("./utils").logDappy;
+const createManifestFromFs = require("./utils").createManifestFromFs;
+const createBase64WithSignature = require("./utils").createBase64WithSignature;
 
 const configFile = fs.readFileSync("dappy.config.json", "utf8");
 
 logDappy();
 
-let js;
-let css;
-let html;
 let base64;
 let jsonStringified;
 
@@ -48,28 +47,9 @@ fs.watchFile(config.manifest.cssPath, () => {
 log("Compiling !");
 
 const createManifest = () => {
-  js = fs.readFileSync(config.manifest.jsPath, "utf8");
-  css = fs.readFileSync(config.manifest.cssPath, "utf8");
-  html = fs.readFileSync(config.manifest.htmlPath, "utf8");
+  jsonStringified = createManifestFromFs(config);
+  base64 = createBase64WithSignature(jsonStringified, privateKey);
 
-  jsonStringified = JSON.stringify({
-    title: config.manifest.title,
-    subtitle: config.manifest.subtitle,
-    author: config.manifest.author,
-    description: config.manifest.description,
-    cssLibraries: config.manifest.cssLibraries,
-    jsLibraries: config.manifest.jsLibraries,
-    js: js,
-    css: css,
-    html: html,
-    version: "0.1"
-  });
-  base64 = Buffer.from(jsonStringified).toString("base64");
-  const signatureBase64 = ed25519.Sign(
-    Buffer.from(base64, "base64"),
-    Buffer.from(privateKey, "hex")
-  );
-  base64 = `${base64};${signatureBase64.toString("base64")}`;
   const codeWithoutRegistry = `
 new private in {
     private!("${base64}") |
