@@ -56,3 +56,18 @@ module.exports.createBase64WithSignature = (manifest, privateKey) => {
   );
   return `${base64};${signatureBase64.toString("base64")}`;
 };
+
+module.exports.getValueFromBlocks = blocks =>
+  new Promise((resolve, reject) => {
+    for (let i = 0; i < blocks.blockResults.length; i += 1) {
+      const block = blocks.blockResults[i];
+      for (let j = 0; j < block.postBlockData.length; j += 1) {
+        const data = block.postBlockData[j].exprs[0];
+        if (data) {
+          resolve(data);
+          return;
+        }
+      }
+    }
+    reject("Not data found in any block");
+  });

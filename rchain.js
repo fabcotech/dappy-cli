@@ -1,6 +1,5 @@
 module.exports.doDeploy = (deployData, client) => {
   return new Promise((resolve, reject) => {
-    console.log("deployData", deployData);
     client.DoDeploy(deployData, function(err) {
       if (err) {
         reject(err);

@@ -1,0 +1,44 @@
+new dapp, publickey, verify, dapphash, return, updateDapp, dappUriCh, insertArbitrary(`rho:registry:insertArbitrary`), stdout(`rho:io:stdout`) in {
+
+  publickey!!("PUBLIC_KEY") |
+  dapp!("MANIFEST") |
+
+  contract updateDapp(message, return) = {
+    for (current <- dapp; pk <- publickey) {
+      stdout!(*current) |
+      @"keccak256Hash"!(*message.get("manifest").toUtf8Bytes(), *dapphash) |
+      for (hash <- dapphash) {
+        stdout!(*hash) |
+        // TODO improve the verify, not secure at all at the moment
+        @"ed25519Verify"!(
+          *hash,
+          *message.get("signature").hexToBytes(),
+          *pk.hexToBytes(),
+          *verify
+        )
+      } |
+      for (verified <- verify) {
+        match *verified {
+          true => {
+            stdout!("verified") |
+            return!("success: record updated") |
+            dapp!(*message.get("manifest"))
+          }
+          false => {
+            stdout!("not verified") |
+            return!("error: invalid signature") |
+            dapp!(*current)
+          }
+        }
+      }
+    }
+  } |
+
+  insertArbitrary!(*updateDapp, *dappUriCh) |
+
+  for (uri <- dappUriCh) {
+    stdout!(*uri)
+  } |
+
+  stdout!(*dapp)
+}

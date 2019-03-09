@@ -3,17 +3,22 @@ const grpc = require("grpc");
 const protoLoader = require("@grpc/proto-loader");
 const crypto = require("crypto");
 const ed25519 = require("ed25519");
+const keccak256 = require("keccak256");
 
 const checkConfigFile = require("./utils").checkConfigFile;
 const logDappy = require("./utils").logDappy;
 const createManifestFromFs = require("./utils").createManifestFromFs;
 const createBase64WithSignature = require("./utils").createBase64WithSignature;
 const doDeploy = require("./rchain").doDeploy;
+const listenForDataAtName = require("./rchain").listenForDataAtName;
 const createBlock = require("./rchain").createBlock;
+const getValueFromBlocks = require("./utils").getValueFromBlocks;
+
+const WATCH = !!process.argv.find(a => a === "--watch");
 
 const configFile = fs.readFileSync("dappy.config.json", "utf8");
 
-const pushFile = fs.readFileSync("push.rho", "utf8");
+const updateFile = fs.readFileSync("update.rho", "utf8");
 
 let base64;
 let jsonStringified;
@@ -42,7 +47,22 @@ log("port : " + config.options.port);
 
 const privateKey = config.options.private_key;
 const publicKey = config.options.public_key;
-const channel = config.options.channel;
+const registryUri = config.options.registry_uri;
+const unforgeableNameId = config.options.unforgeable_name_id;
+
+if (!registryUri) {
+  log(
+    "Error : In order to update the manifest, you must provide a registry_uri in dappy.config.json"
+  );
+  process.exit();
+}
+if (!unforgeableNameId) {
+  log(
+    "Error : In order to update the manifest, you must provide a unforgeable_name_id in dappy.config.json"
+  );
+  process.exit();
+}
+
 log("publicKey : " + publicKey);
 
 fs.watchFile(config.manifest.jsPath, () => {
@@ -53,20 +73,31 @@ fs.watchFile(config.manifest.cssPath, () => {
   createManifest();
 });
 
-log("Compiling !");
+if (WATCH) {
+  log("Watching for file changes !");
+} else {
+  log("Compiling !");
+}
 
 const createManifest = () => {
   jsonStringified = createManifestFromFs(config);
   base64 = createBase64WithSignature(jsonStringified, privateKey);
 
-  const code = pushFile
-    .replace("PUBLIC_KEY", publicKey)
-    .replace("MANIFEST", base64);
+  const hashManifest = keccak256(base64).toString("hex");
+  const signatureManifest = ed25519.Sign(
+    new Buffer(hashManifest, "hex"),
+    Buffer.from(privateKey, "hex")
+  );
+
+  let code = updateFile
+    .replace("REGISTRY_URI", registryUri)
+    .replace("MANIFEST", base64)
+    .replace("SIGNATURE", signatureManifest.toString("hex"));
 
   var hash = crypto
     .createHash("sha256")
     .update(code)
-    .digest(); //returns a buffer
+    .digest();
 
   const hashHex = hash.toString("hex");
   log("hash HEX " + hashHex);
@@ -117,14 +148,6 @@ const createManifest = () => {
     }
   });
 
-  fs.writeFileSync("contract.rho", code, err => {
-    exit(i);
-    if (err) {
-      console.error(err);
-    }
-  });
-  log("contract.rho created !");
-
   fs.writeFileSync("manifest.base64", base64, err => {
     if (err) {
       console.error(err);
@@ -149,12 +172,40 @@ const createManifest = () => {
         .then(() => {
           return createBlock({}, client);
         })
-        .then(a => {
-          log("Block has been pushed on the blockchain !");
-          log(
-            "You must now read the logs and add keys registry_uri and unforgeable_name_id so the manifest can be updated"
-          );
-          process.exit();
+        .then(() => {
+          const nameByteArray = new Buffer(unforgeableNameId, "hex");
+          const channelRequest = { ids: [{ id: Array.from(nameByteArray) }] };
+          return listenForDataAtName(
+            {
+              depth: 20,
+              name: channelRequest
+            },
+            client
+          ).then(blocks => {
+            getValueFromBlocks(blocks)
+              .then(data => {
+                const manifest = data.g_string;
+                log(
+                  "Manifest value on chain is : " +
+                    manifest.substr(0, 20) +
+                    "..." +
+                    manifest.substr(manifest.length - 20)
+                );
+                if (manifest === base64) {
+                  log("Data on chain verified !");
+                  if (!WATCH) {
+                    process.exit();
+                  }
+                } else {
+                  throw new Error("Data could not be verified");
+                }
+              })
+              .catch(err => {
+                log("error : something went wrong when querying the node");
+                log(err);
+                process.exit();
+              });
+          });
         });
     });
 };
