@@ -6,6 +6,7 @@ const ed25519 = require("ed25519");
 
 const checkConfigFile = require("./utils").checkConfigFile;
 const logDappy = require("./utils").logDappy;
+const buildDeployData = require("./utils").buildDeployData;
 const createManifestFromFs = require("./utils").createManifestFromFs;
 const createBase64WithSignature = require("./utils").createBase64WithSignature;
 const doDeploy = require("./rchain").doDeploy;
@@ -13,7 +14,7 @@ const createBlock = require("./rchain").createBlock;
 
 const configFile = fs.readFileSync("dappy.config.json", "utf8");
 
-const pushFile = fs.readFileSync("push.rho", "utf8");
+const pushFile = fs.readFileSync(`${__dirname}/push.rho`, "utf8");
 
 let base64;
 let jsonStringified;
@@ -69,46 +70,26 @@ const createManifest = () => {
     .digest(); //returns a buffer
 
   const hashHex = hash.toString("hex");
-  log("hash HEX " + hashHex);
 
   const timestamp = new Date().valueOf();
-  log("timestamp " + timestamp);
 
   const toSign = hashHex + timestamp;
-  log("toSign " + toSign);
   const signature = ed25519.Sign(
     new Buffer(toSign, "hex"),
     Buffer.from(privateKey, "hex")
   );
   if (
-    ed25519.Verify(
+    !ed25519.Verify(
       new Buffer(toSign, "hex"),
       signature,
       Buffer.from(publicKey, "hex")
     )
   ) {
-    log("Signature verified");
-  } else {
     console.error("Signature not valid");
     process.exit();
   }
 
-  const deployData = {
-    // user: publicKey,
-    term: code,
-    timestamp,
-    /* sig: signature.toString("hex"),
-    sigAlgorithm: "ed25519", */
-    from: "0x1",
-    nonce: 0,
-    phloPrice: 1,
-    phloLimit: 1000000
-  };
-  /* const deployDataOk = {
-    ...deployData,
-    user: Buffer.from(deployData.user, "hex"),
-    sig: Buffer.from(deployData.sig, "hex")
-  }; */
+  const deployData = buildDeployData(code, timestamp);
 
   fs.writeFileSync("manifest.json", jsonStringified, err => {
     exit(i);
@@ -117,19 +98,14 @@ const createManifest = () => {
     }
   });
 
-  fs.writeFileSync("contract.rho", code, err => {
-    exit(i);
-    if (err) {
-      console.error(err);
-    }
-  });
-  log("contract.rho created !");
-
   fs.writeFileSync("manifest.base64", base64, err => {
     if (err) {
       console.error(err);
     }
   });
+  const stats = fs.statSync("manifest.base64");
+  const manifestBase64Size = stats.size / 1000;
+  log("manifest.base64 created : " + manifestBase64Size + "ko");
 
   protoLoader
     .load(__dirname + "/protobuf/CasperMessage.proto", {

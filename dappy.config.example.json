@@ -14,7 +14,6 @@
     "platform": "rchain",
     "host": "localhost",
     "port": "40401",
-    "channel": "public channel you want to push the code onto",
     "private_key": "ED25519 private key",
     "public_key": "ED25519 public key",
     "registry_uri": "registry URI for the update of the dapp (logged by rnode after push has been ran)",

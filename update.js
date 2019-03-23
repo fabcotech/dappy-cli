@@ -7,6 +7,7 @@ const keccak256 = require("keccak256");
 
 const checkConfigFile = require("./utils").checkConfigFile;
 const logDappy = require("./utils").logDappy;
+const buildDeployData = require("./utils").buildDeployData;
 const createManifestFromFs = require("./utils").createManifestFromFs;
 const createBase64WithSignature = require("./utils").createBase64WithSignature;
 const doDeploy = require("./rchain").doDeploy;
@@ -18,7 +19,7 @@ const WATCH = !!process.argv.find(a => a === "--watch");
 
 const configFile = fs.readFileSync("dappy.config.json", "utf8");
 
-const updateFile = fs.readFileSync("update.rho", "utf8");
+const updateFile = fs.readFileSync(`${__dirname}/update.rho`, "utf8");
 
 let base64;
 let jsonStringified;
@@ -48,7 +49,10 @@ log("port : " + config.options.port);
 const privateKey = config.options.private_key;
 const publicKey = config.options.public_key;
 const registryUri = config.options.registry_uri;
-const unforgeableNameId = config.options.unforgeable_name_id;
+let unforgeableNameId = config.options.unforgeable_name_id;
+if (unforgeableNameId && unforgeableNameId.startsWith("0x")) {
+  unforgeableNameId = unforgeableNameId.slice(2);
+}
 
 if (!registryUri) {
   log(
@@ -70,6 +74,10 @@ fs.watchFile(config.manifest.jsPath, () => {
 });
 
 fs.watchFile(config.manifest.cssPath, () => {
+  createManifest();
+});
+
+fs.watchFile(config.manifest.htmlPath, () => {
   createManifest();
 });
 
@@ -100,46 +108,26 @@ const createManifest = () => {
     .digest();
 
   const hashHex = hash.toString("hex");
-  log("hash HEX " + hashHex);
 
   const timestamp = new Date().valueOf();
-  log("timestamp " + timestamp);
 
   const toSign = hashHex + timestamp;
-  log("toSign " + toSign);
   const signature = ed25519.Sign(
     new Buffer(toSign, "hex"),
     Buffer.from(privateKey, "hex")
   );
   if (
-    ed25519.Verify(
+    !ed25519.Verify(
       new Buffer(toSign, "hex"),
       signature,
       Buffer.from(publicKey, "hex")
     )
   ) {
-    log("Signature verified");
-  } else {
     console.error("Signature not valid");
     process.exit();
   }
 
-  const deployData = {
-    // user: publicKey,
-    term: code,
-    timestamp,
-    /* sig: signature.toString("hex"),
-    sigAlgorithm: "ed25519", */
-    from: "0x1",
-    nonce: 0,
-    phloPrice: 1,
-    phloLimit: 1000000
-  };
-  /* const deployDataOk = {
-    ...deployData,
-    user: Buffer.from(deployData.user, "hex"),
-    sig: Buffer.from(deployData.sig, "hex")
-  }; */
+  const deployData = buildDeployData(code, timestamp);
 
   fs.writeFileSync("manifest.json", jsonStringified, err => {
     exit(i);
@@ -153,6 +141,9 @@ const createManifest = () => {
       console.error(err);
     }
   });
+  const stats = fs.statSync("manifest.base64");
+  const manifestBase64Size = stats.size / 1000;
+  log("manifest.base64 created : " + manifestBase64Size + "ko");
 
   protoLoader
     .load(__dirname + "/protobuf/CasperMessage.proto", {
@@ -187,12 +178,16 @@ const createManifest = () => {
                 const manifest = data.g_string;
                 log(
                   "Manifest value on chain is : " +
-                    manifest.substr(0, 20) +
+                    manifest.substr(0, 15) +
                     "..." +
-                    manifest.substr(manifest.length - 20)
+                    manifest.substr(manifest.length - 15)
                 );
                 if (manifest === base64) {
                   log("Data on chain verified !");
+                  log(
+                    "Pushed successfully on unforgeable name " +
+                      unforgeableNameId
+                  );
                   if (!WATCH) {
                     process.exit();
                   }

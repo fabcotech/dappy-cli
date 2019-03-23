@@ -6,6 +6,14 @@ dappy-node bundles some general information about your dapp and the ressources o
 
 Requisite: have a running RChain node.
 
+#### installation
+
+This library is not currently on npm, install it by adding this dependy to your `package.json` file
+
+```json
+  "dappy-dev": "https://github.com/fabcotech/dappy-dev"
+```
+
 #### scripts
 
 Scripts to add in your package.json :
@@ -36,9 +44,10 @@ To init the `dappy.config.json` file with default values run `npm run dappy-dev:
     "author": "Willy", // Author, likely you
     "cssLibraries": ["bulma@0.x"], // css libraries your dapp relies on, and you don't want to include in your css bundle
     "jsLibraries": [
-      "react@latest",
-      "react-dom@latest",
-      "react-redux@5.0.7"
+      "react@16.7.0",
+      "react-dom@16.7.0",
+      "react-redux@6.0.0",
+      "redux@4.0.1"
     ], // js libraries your dapp relies on, and you don't want to include in your js bundle
     "jsPath": "dist/bundle.min.js", // path of your main application js file
     "cssPath": "dist/bundle.min.css" // path of your main application css file

@@ -71,3 +71,17 @@ module.exports.getValueFromBlocks = blocks =>
     }
     reject("Not data found in any block");
   });
+
+module.exports.buildDeployData = (code, timestamp) => {
+  return {
+    // user: publicKey,
+    term: code,
+    timestamp,
+    /* sig: signature.toString("hex"),
+      sigAlgorithm: "ed25519", */
+    from: "0x1",
+    nonce: 0,
+    phloPrice: 1,
+    phloLimit: 10000000
+  };
+};
