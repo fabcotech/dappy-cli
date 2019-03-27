@@ -1,5 +1,5 @@
 {
-  "name": "dappy-dev",
+  "name": "dappy-cli",
   "version": "0.1.3",
   "description": "",
   "main": "index.js",
@@ -7,20 +7,20 @@
   "scripts": {
     "start": "node index",
     "start:watch": "node index --watch",
-    "dappy-dev:init": "node ./node_modules/dappy-dev/init.js",
-    "dappy-dev:build": "node ./node_modules/dappy-dev/build.js",
-    "dappy-dev:builded25519": "node ./node_modules/dappy-dev/builded25519.js",
-    "dappy-dev:push": "node ./node_modules/dappy-dev/index.js",
-    "dappy-dev:watch": "node ./node_modules/dappy-dev/index.js --watch",
-    "dappy-dev:lookup": "node ./node_modules/dappy-dev/lookup.js"
+    "dappy-cli:init": "node ./node_modules/dappy-cli/init.js",
+    "dappy-cli:build": "node ./node_modules/dappy-cli/build.js",
+    "dappy-cli:builded25519": "node ./node_modules/dappy-cli/builded25519.js",
+    "dappy-cli:push": "node ./node_modules/dappy-cli/index.js",
+    "dappy-cli:watch": "node ./node_modules/dappy-cli/index.js --watch",
+    "dappy-cli:lookup": "node ./node_modules/dappy-cli/lookup.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fabcotech/dappy-dev.git"
+    "url": "git+https://github.com/fabcotech/dappy-cli.git"
   },
   "author": "Raphaël Fabre",
   "license": "MIT",
-  "homepage": "https://github.com/fabcotech/dappy-dev",
+  "homepage": "https://github.com/fabcotech/dappy-cli",
   "dependencies": {
     "@grpc/proto-loader": "^0.3.0",
     "ed25519": "0.0.4",
