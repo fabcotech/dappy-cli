@@ -1,10 +1,10 @@
-## dappy-dev
+## dappy-cli
 
-Node JS dev kit to build and livepush Dappy manifests to the RChain blockchain.
+Node JS cli to build and livepush Dappy manifests to the RChain blockchain.
 
-dappy-node bundles some general information about your dapp and the ressources of your dapp (js, css), puts them all in one big JSON file, and converts it to a base 64. This resulting long string can then be pushed to the blockchain, often stored in a smart contract. Then on the client side, someone you just have to share the RChain channel you pushed your code onto, and Dappy users will be able to easily load and execute your dapp code in Dappy.
+Using dappy-cli you can easily initialize, manage and push your web application to the blockchain. In other words, package your web application so it can be loaded in Dappy browser.
 
-Requisite: have a running RChain node.
+This tool includes live-push (pushe a new version of your dapp everytimes a file changes), and public key / private key verification.
 
 #### installation
 
