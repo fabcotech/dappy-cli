@@ -1,7 +1,6 @@
 {
   "manifest": {
     "title": "My dapp",
-    "subtitle": "My cool dapp",
     "description": "This is a simple hello world dapp",
     "author": "Willy",
     "cssLibraries": ["bulma@0.x"],
@@ -14,7 +13,7 @@
     "platform": "rchain",
     "host": "localhost",
     "port": "40401",
-    "private_key": "ED25519 private key",
+    "private_key": "ED25519 private key, if not provided, a prompt will ask for it",
     "public_key": "ED25519 public key",
     "registry_uri": "registry URI for the update of the dapp (logged by rnode after push has been ran)",
     "unforgeable_name_id": "registry URI for the update of the contract (logged by rnode after push has been ran)"
