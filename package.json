@@ -1,6 +1,6 @@
 {
   "name": "dappy-cli",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "",
   "main": "index.js",
   "directories": {},
@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git+https://github.com/fabcotech/dappy-cli.git"
   },
-  "author": "Raphaël Fabre",
+  "author": "FABCO",
   "license": "MIT",
   "homepage": "https://github.com/fabcotech/dappy-cli",
   "dependencies": {
@@ -17,6 +17,5 @@
     "ed25519": "0.0.4",
     "grpc": "1.16.0",
     "keccak256": "1.0.0"
-  },
-  "devDependencies": {}
+  }
 }
