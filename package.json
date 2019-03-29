@@ -1,19 +1,10 @@
 {
   "name": "dappy-cli",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "",
   "main": "index.js",
   "directories": {},
-  "scripts": {
-    "start": "node index",
-    "start:watch": "node index --watch",
-    "dappy-cli:init": "node ./node_modules/dappy-cli/init.js",
-    "dappy-cli:build": "node ./node_modules/dappy-cli/build.js",
-    "dappy-cli:builded25519": "node ./node_modules/dappy-cli/builded25519.js",
-    "dappy-cli:push": "node ./node_modules/dappy-cli/index.js",
-    "dappy-cli:watch": "node ./node_modules/dappy-cli/index.js --watch",
-    "dappy-cli:lookup": "node ./node_modules/dappy-cli/lookup.js"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fabcotech/dappy-cli.git"
@@ -22,14 +13,10 @@
   "license": "MIT",
   "homepage": "https://github.com/fabcotech/dappy-cli",
   "dependencies": {
-    "@grpc/proto-loader": "^0.3.0",
+    "@grpc/proto-loader": "0.3.0",
     "ed25519": "0.0.4",
-    "eth-lib": "0.2.8",
-    "ethereumjs-util": "6.0.0",
-    "ethers": "4.0.20",
     "grpc": "1.16.0",
-    "keccak256": "^1.0.0",
-    "rchain-api": "git+https://github.com/rchain-community/RChain-API.git",
-    "secp256k1": "3.5.2"
-  }
+    "keccak256": "1.0.0"
+  },
+  "devDependencies": {}
 }

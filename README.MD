@@ -20,12 +20,11 @@ Scripts to add in your package.json :
 
 ```json
 {
-  "dappy-dev:init": "node ./node_modules/dappy-dev/init.js",
-  "dappy-dev:build": "node ./node_modules/dappy-dev/build.js",
-  "dappy-dev:push": "node ./node_modules/dappy-dev/push.js",
-  "dappy-dev:update": "node ./node_modules/dappy-dev/update.js",
-  "dappy-dev:watch": "node ./node_modules/dappy-dev/update.js --watch",
-  "dappy-dev:lookup": "node ./node_modules/dappy-dev/lookup.js"
+  "dappy:init": "node ./node_modules/dappy-cli/lib/ init",
+  "dappy:build": "node ./node_modules/dappy-cli/lib/ build",
+  "dappy:push": "node ./node_modules/dappy-cli/lib/ push",
+  "dappy:update": "node ./node_modules/dappy-cli/lib/ update",
+  "dappy:watch": "node ./node_modules/dappy-cli/lib/ update --watch"
 }
 ```
 
