@@ -1,4 +1,4 @@
-new dapp, publickey, verify, dapphash, return, updateDapp, dappUriCh, insertArbitrary(`rho:registry:insertArbitrary`), stdout(`rho:io:stdout`) in {
+new basket, dapp, publickey, verify, dapphash, return, updateDapp, dappUriCh, insertArbitrary(`rho:registry:insertArbitrary`), stdout(`rho:io:stdout`) in {
 
   publickey!!("PUBLIC_KEY") |
   dapp!("MANIFEST") |
@@ -37,7 +37,14 @@ new dapp, publickey, verify, dapphash, return, updateDapp, dappUriCh, insertArbi
   insertArbitrary!(*updateDapp, *dappUriCh) |
 
   for (uri <- dappUriCh) {
-    stdout!(*uri)
+    stdout!({
+      "registry_uri": *uri,
+      "unforgeable_name": *dapp
+    }) |
+    basket!({
+      "registry_uri": *uri,
+      "unforgeable_name": *dapp
+    })
   } |
 
   stdout!(*dapp)
