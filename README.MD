@@ -2,16 +2,16 @@
 
 Node JS cli to build and livepush Dappy manifests to the RChain blockchain.
 
-Using dappy-cli you can easily initialize, manage and push your web application to the blockchain. In other words, package your web application so it can be loaded in Dappy browser.
+Using dappy-cli you can easily initialize, manage and push your web application to the blockchain. In other words, package your web application so it can be loaded in Dappy browser. It compiles your HTML, CSS and JS files into a base64 bundle, and pushed a Rholang code to store the manifest online.
 
-This tool includes live-push (pushe a new version of your dapp everytimes a file changes), and public key / private key verification.
+This tool includes live-push (push a new version of your dapp everytimes a file changes), and public key / private key verification.
+
+Once manifests is pushed, the dapp is instantly (or in a short period depending on consensus time) available in Dappy browser. Simply copy and paste the unforgeable name id in the search bar, and of course check that blockchain settings are correctly configured.
 
 #### installation
 
-This library is not currently on npm, install it by adding this dependy to your `package.json` file
-
-```json
-  "dappy-dev": "https://github.com/fabcotech/dappy-dev"
+```
+  npm install dappy-cli
 ```
 
 #### scripts
@@ -38,14 +38,13 @@ To init the `dappy.config.json` file with default values run `npm run dappy-dev:
 {
   "manifest": {
     "title": "My dapp", // Title of your dapp
-    "subtitle": "My cool dapp", // Subtitle of your dapp
     "description": "Cool dapp you should try out !", // Description of your dapp
     "author": "Willy", // Author, likely you
     "cssLibraries": ["bulma@0.x"], // css libraries your dapp relies on, and you don't want to include in your css bundle
     "jsLibraries": [
-      "react@16.7.0",
-      "react-dom@16.7.0",
-      "react-redux@6.0.0",
+      "react@16.8.5",
+      "react-dom@16.8.5",
+      "react-redux@6.0.1",
       "redux@4.0.1"
     ], // js libraries your dapp relies on, and you don't want to include in your js bundle
     "jsPath": "dist/bundle.min.js", // path of your main application js file
@@ -57,7 +56,8 @@ To init the `dappy.config.json` file with default values run `npm run dappy-dev:
     "port": "40401", // port of the RChain node you want to connect to
     "private_key": "abcdef" // ED25519 private key
     "public_key": "abc" // ED25519 Corresponding public key
-    "channel": "mychannel" // Public name you wish to push the data onto, in this example: @"mychannel"
+    "registry_uri": "hugyft56434...." // registry URI for the update of the dapp (logged by rnode after push has been ran),
+    "unforgeable_name_id": "ha765230gh...." // unforgeable name ID, blockchain address of the dapp manifest
   }
 }
 ```

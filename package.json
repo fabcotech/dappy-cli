@@ -1,6 +1,6 @@
 {
   "name": "dappy-cli",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "",
   "main": "index.js",
   "directories": {},
@@ -14,8 +14,10 @@
   "homepage": "https://github.com/fabcotech/dappy-cli",
   "dependencies": {
     "@grpc/proto-loader": "0.3.0",
+    "blakejs": "^1.1.0",
     "ed25519": "0.0.4",
     "grpc": "1.16.0",
-    "keccak256": "1.0.0"
+    "keccak256": "1.0.0",
+    "tweetnacl": "git+https://github.com/dchest/tweetnacl-js.git"
   }
 }
