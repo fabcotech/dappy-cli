@@ -18,6 +18,7 @@
     "ed25519": "0.0.4",
     "grpc": "1.16.0",
     "keccak256": "1.0.0",
+    "secp256k1": "^3.7.1",
     "tweetnacl": "git+https://github.com/dchest/tweetnacl-js.git"
   }
 }
