@@ -32,21 +32,12 @@ Scripts to add in your package.json :
 
 This file defines some properties of your dappy application, the ressources you'll need like JS or CSS libraries, and finally the path of your app's ressources (main JS and CSS files).
 
-To init the `dappy.config.json` file with default values run `npm run dappy-dev:init`.
+To init the `dappy.config.json` file with default values run `npm run dappy:init`.
 
 ```javascript
 {
   "manifest": {
-    "title": "My dapp", // Title of your dapp
-    "description": "Cool dapp you should try out !", // Description of your dapp
-    "author": "Willy", // Author, likely you
-    "cssLibraries": ["bulma@0.x"], // css libraries your dapp relies on, and you don't want to include in your css bundle
-    "jsLibraries": [
-      "react@16.8.5",
-      "react-dom@16.8.5",
-      "react-redux@6.0.1",
-      "redux@4.0.1"
-    ], // js libraries your dapp relies on, and you don't want to include in your js bundle
+    "title": "My dapp", // This will only be used as the title of the .dpy file
     "jsPath": "dist/bundle.min.js", // path of your main application js file
     "cssPath": "dist/bundle.min.css" // path of your main application css file
   },
@@ -61,3 +52,7 @@ To init the `dappy.config.json` file with default values run `npm run dappy-dev:
   }
 }
 ```
+
+#### HTML file requirements
+
+#### Import dappy local js/css libraries

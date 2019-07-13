@@ -1,10 +1,6 @@
 {
   "manifest": {
     "title": "My dapp",
-    "description": "This is a simple hello world dapp",
-    "author": "Willy",
-    "cssLibraries": ["bulma@0.x"],
-    "jsLibraries": ["react@16.7.0", "react-dom@16.7.0", "react-redux@6.0.0"],
     "jsPath": "dist/bundle.min.js",
     "cssPath": "dist/bundle.min.css",
     "htmlPath": "dist/index.html"
@@ -13,8 +9,8 @@
     "platform": "rchain",
     "host": "localhost",
     "port": "40401",
-    "private_key": "ED25519 private key, if not provided, a prompt will ask for it",
-    "public_key": "ED25519 public key",
+    "private_key": "Secp256k1 private key, if not provided, a prompt will ask for it",
+    "public_key": "Secp256k1 public key",
     "registry_uri": "registry URI for the update of the dapp manifest (logged by rnode after push has been ran)",
     "unforgeable_name_id": "unforgeable name ID, blockchain address of the dapp manifest"
   }
