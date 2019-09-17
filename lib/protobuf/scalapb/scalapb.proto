@@ -1,3 +1,0 @@
-// empty file satisfies includes from CasperMessages.proto etc.
-// but avoids:
-// Error: unresolvable extensions: 'extend google.protobuf.FileOptions' in .scalapb ...
