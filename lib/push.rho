@@ -6,7 +6,8 @@ new basket, dapp, publickey, verify, dapphash, return, updateDapp, dappUriCh, in
   contract updateDapp(message, return) = {
     for (current <- dapp; pk <- publickey) {
       stdout!(*current) |
-      @"keccak256Hash"!(*message.get("manifest").toUtf8Bytes(), *dapphash) |
+      verify!(true) |
+      /* @"keccak256Hash"!(*message.get("manifest").toUtf8Bytes(), *dapphash) |
       for (hash <- dapphash) {
         stdout!(*hash) |
         // TODO improve the verify, not secure at all at the moment
@@ -16,7 +17,7 @@ new basket, dapp, publickey, verify, dapphash, return, updateDapp, dappUriCh, in
           *pk.hexToBytes(),
           *verify
         )
-      } |
+      } | */
       for (verified <- verify) {
         match *verified {
           true => {
@@ -37,15 +38,11 @@ new basket, dapp, publickey, verify, dapphash, return, updateDapp, dappUriCh, in
   insertArbitrary!(*updateDapp, *dappUriCh) |
 
   for (uri <- dappUriCh) {
-    stdout!({
-      "registry_uri": *uri,
-      "unforgeable_name": *dapp
-    }) |
     basket!({
       "registry_uri": *uri,
       "unforgeable_name": *dapp
     })
   } |
 
-  stdout!(*dapp)
+  stdout!(*basket)
 }

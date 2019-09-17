@@ -1,8 +1,8 @@
 {
   "name": "dappy-cli",
-  "version": "0.1.8",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.9",
+  "description": "Node JS cli to upload and update dappy applications to the blockchain",
+  "main": "lib/index.js",
   "directories": {},
   "scripts": {},
   "repository": {
@@ -13,10 +13,10 @@
   "license": "MIT",
   "homepage": "https://github.com/fabcotech/dappy-cli",
   "dependencies": {
+    "@grpc/grpc-js": "^0.5.3",
     "@grpc/proto-loader": "0.3.0",
     "blakejs": "^1.1.0",
-    "grpc": "1.16.0",
     "elliptic": "^6.5.0",
-    "rchain-toolkit": "0.0.8"
+    "rchain-toolkit": "0.1.1"
   }
 }
