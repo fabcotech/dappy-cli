@@ -1,14 +1,14 @@
-new updateCh,
+new entryCh,
   lookup(`rho:registry:lookup`),
   stdout(`rho:io:stdout`) in {
 
-  lookup!(`rho:id:REGISTRY_URI`, *updateCh) |
+  lookup!(`rho:id:REGISTRY_URI`, *entryCh) |
 
-  for( update <- updateCh) {
+  for(update <- entryCh) {
     update!(
       {
-        "manifest": "MANIFEST",
-        "signature": "SIGNATURE"
+        "type": "UPDATE_CODE",
+        "payload": "MANIFEST"
       },
       *stdout
     )

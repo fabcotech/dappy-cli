@@ -1,7 +1,7 @@
 new basket, dapp, publickey, verify, dapphash, return, updateDapp, dappUriCh, insertArbitrary(`rho:registry:insertArbitrary`), stdout(`rho:io:stdout`) in {
 
   publickey!!("PUBLIC_KEY") |
-  dapp!("MANIFEST") |
+  dapp!("DAPPY_FILE") |
 
   contract updateDapp(message, return) = {
     for (current <- dapp; pk <- publickey) {

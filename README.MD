@@ -56,3 +56,9 @@ To init the `dappy.config.json` file with default values run `npm run dappy:init
 #### HTML file requirements
 
 #### Import dappy local js/css libraries
+
+#### Inferred mime types
+
+When you use the push-file script, the mimeType will be guessed based on the file extension. We will set the mimeType based on this list. You can also pass the --mimeType command line option to override this.
+
+https://www.iana.org/assignments/media-types/media-types.xhtml
