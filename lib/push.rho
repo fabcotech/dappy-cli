@@ -23,7 +23,7 @@ new basket, dapp, publickey, verify, dapphash, return, updateDapp, dappUriCh, in
           true => {
             stdout!("verified") |
             return!("success: record updated") |
-            dapp!(*message.get("manifest"))
+            dapp!(*message.get("payload"))
           }
           false => {
             stdout!("not verified") |
