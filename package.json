@@ -1,6 +1,6 @@
 {
   "name": "dappy-cli",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Node JS cli to upload and update dappy applications to the blockchain",
   "main": "lib/index.js",
   "directories": {},
@@ -17,6 +17,6 @@
     "@grpc/proto-loader": "0.3.0",
     "blakejs": "^1.1.0",
     "elliptic": "^6.5.0",
-    "rchain-toolkit": "0.1.6"
+    "rchain-toolkit": "0.1.7"
   }
 }

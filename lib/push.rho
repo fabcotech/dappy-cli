@@ -1,37 +1,12 @@
-new basket, dapp, publickey, verify, dapphash, return, updateDapp, dappUriCh, insertArbitrary(`rho:registry:insertArbitrary`), stdout(`rho:io:stdout`) in {
+new basket, file, publickey, verify, dapphash, return, updateDapp, dappUriCh, insertArbitrary(`rho:registry:insertArbitrary`), stdout(`rho:io:stdout`) in {
 
   publickey!!("PUBLIC_KEY") |
-  dapp!("DAPPY_FILE") |
+  file!("DAPPY_FILE") |
 
   contract updateDapp(message, return) = {
-    for (current <- dapp; pk <- publickey) {
-      stdout!(*current) |
-      verify!(true) |
-      /* @"keccak256Hash"!(*message.get("manifest").toUtf8Bytes(), *dapphash) |
-      for (hash <- dapphash) {
-        stdout!(*hash) |
-        // TODO improve the verify, not secure at all at the moment
-        @"ed25519Verify"!(
-          *hash,
-          *message.get("signature").hexToBytes(),
-          *pk.hexToBytes(),
-          *verify
-        )
-      } | */
-      for (verified <- verify) {
-        match *verified {
-          true => {
-            stdout!("verified") |
-            return!("success: record updated") |
-            dapp!(*message.get("payload"))
-          }
-          false => {
-            stdout!("not verified") |
-            return!("error: invalid signature") |
-            dapp!(*current)
-          }
-        }
-      }
+    return!("success: record updated") |
+    for (current <- file) {
+      file!(*message.get("payload"))
     }
   } |
 
@@ -40,7 +15,7 @@ new basket, dapp, publickey, verify, dapphash, return, updateDapp, dappUriCh, in
   for (uri <- dappUriCh) {
     basket!({
       "registry_uri": *uri,
-      "unforgeable_name": *dapp
+      "unforgeable_name": *file
     })
   } |
 
