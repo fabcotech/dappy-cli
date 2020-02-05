@@ -9,6 +9,7 @@
     "platform": "rchain",
     "host": "localhost",
     "port": "40401",
+    "httpPort": "40403",
     "private_key": "Secp256k1 private key, if not provided, a prompt will ask for it",
     "public_key": "Secp256k1 public key",
     "registry_uri": "registry URI for the update of the dapp manifest (logged by rnode after push has been ran)",

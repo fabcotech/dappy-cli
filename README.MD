@@ -28,6 +28,16 @@ Scripts to add in your package.json :
 }
 ```
 
+##### Value replacement before push
+
+Dappy will replace the following expression if they are found in the bundled html file :
+
+- `PUBLIC_KEY` : replaced by the public key from `dappy.config.json`
+- `REV_ADDRESS` : replaced by the addressed proicessed from the public key
+- `DAPPY_FILE`: replaced by the content of the created DPY file
+
+You can have a look at the default `push.rho` and see that `DAPPY_FILE` for example is present, to be replaced before the blockchain deployment.
+
 #### dappy.config.json config file
 
 This file defines some properties of your dappy application, the ressources you'll need like JS or CSS libraries, and finally the path of your app's ressources (main JS and CSS files).
