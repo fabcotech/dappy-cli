@@ -54,9 +54,9 @@ To init the `dappy.config.json` file with default values run `npm run dappy:init
   "options": {
     "platform": "rchain", // leave "rchain" for now since it's the only platform supported
     "host": "localhost", // host of the RChain node you want to connect to
-    "port": "40401", // port of the RChain node you want to connect to
+    "grpcProposePort": "40402", // port use for proposal (through GRPC), leave it blank if not able to propose
+    "httpPort": "40403", // port of the RChain HTTP api
     "private_key": "abcdef" // ED25519 private key
-    "public_key": "abc" // ED25519 Corresponding public key
     "registry_uri": "hugyft56434...." // registry URI for the update of the dapp (logged by rnode after push has been ran),
     "unforgeable_name_id": "ha765230gh...." // unforgeable name ID, blockchain address of the dapp manifest
   }
