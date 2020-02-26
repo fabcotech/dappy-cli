@@ -1,0 +1,4 @@
+lib/dappy.config.json
+**/*.jpg
+**/*.png
+**/*.dpy
