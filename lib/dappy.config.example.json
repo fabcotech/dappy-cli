@@ -7,9 +7,11 @@
   },
   "options": {
     "platform": "rchain",
-    "host": "localhost",
-    "grpcProposePort": "40402",
-    "httpPort": "40403",
+    "readOnlyHost": "http://localhost",
+    "readOnlyHostHttpPort": "40403",
+    "validatorHost": "http://localhost",
+    "validatorHostHttpPort": "40403",
+    "validatorHostgrpcProposePort": "40402",
     "private_key": "Secp256k1 private key, if not provided, a prompt will ask for it",
     "registry_uri": "registry URI for the update of the dapp manifest (logged by rnode after push has been ran)",
     "unforgeable_name_id": "unforgeable name ID, blockchain address of the dapp manifest"
