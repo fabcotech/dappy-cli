@@ -3,7 +3,8 @@
     "title": "My dapp",
     "jsPath": "dist/bundle.min.js",
     "cssPath": "dist/bundle.min.css",
-    "htmlPath": "dist/index.html"
+    "htmlPath": "dist/index.html",
+    "fileId": "index"
   },
   "options": {
     "platform": "rchain",
@@ -13,7 +14,6 @@
     "validatorHostHttpPort": "40403",
     "validatorHostgrpcProposePort": "40402",
     "private_key": "Secp256k1 private key, if not provided, a prompt will ask for it",
-    "registry_uri": "registry URI for the update of the dapp manifest (logged by rnode after push has been ran)",
-    "unforgeable_name_id": "unforgeable name ID, blockchain address of the dapp manifest"
+    "registryUri": "Used for update ony, registry URI (the regular one, not the entry one) for the update of the file (must follow the rholang-files-module standard)"
   }
 }

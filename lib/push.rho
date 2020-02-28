@@ -1,23 +1,17 @@
-new basket, file, publickey, verify, dapphash, return, updateDapp, dappUriCh, insertArbitrary(`rho:registry:insertArbitrary`), stdout(`rho:io:stdout`) in {
-
-  publickey!!("PUBLIC_KEY") |
-  file!("DAPPY_FILE") |
-
-  contract updateDapp(message, return) = {
-    return!("success: record updated") |
-    for (current <- file) {
-      file!(*message.get("payload"))
+new entryCh, lookup(`rho:registry:lookup`), stdout(`rho:io:stdout`) in {
+    lookup!(`REGISTRY_URI`, *entryCh) |
+    for(entry <- entryCh) {
+      entry!(
+        {
+          "type": "ADD",
+          "payload": {
+            "id": "FILE_ID",
+            "file": "DAPPY_FILE",
+            "nonce": "NONCE",
+            "signature": "SIGNATURE"
+          }
+        },
+        *stdout
+      )
     }
-  } |
-
-  insertArbitrary!(*updateDapp, *dappUriCh) |
-
-  for (uri <- dappUriCh) {
-    basket!({
-      "registry_uri": *uri,
-      "unforgeable_name": *file
-    })
-  } |
-
-  stdout!(*basket)
-}
+  }

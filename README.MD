@@ -50,6 +50,7 @@ To init the `dappy.config.json` file with default values run `npm run dappy:init
     "title": "My dapp", // This will only be used as the title of the .dpy file
     "jsPath": "dist/bundle.min.js", // path of your main application js file
     "cssPath": "dist/bundle.min.css" // path of your main application css file
+    "fileId": "cool" // file ID (rholang-files-module), address will be registry_uri.file_id
   },
   "options": {
     "platform": "rchain", // leave "rchain" for now since it's the only platform supported
@@ -57,8 +58,7 @@ To init the `dappy.config.json` file with default values run `npm run dappy:init
     "grpcProposePort": "40402", // port use for proposal (through GRPC), leave it blank if not able to propose
     "httpPort": "40403", // port of the RChain HTTP api
     "private_key": "abcdef" // ED25519 private key
-    "registry_uri": "hugyft56434...." // registry URI for the update of the dapp (logged by rnode after push has been ran),
-    "unforgeable_name_id": "ha765230gh...." // unforgeable name ID, blockchain address of the dapp manifest
+    "registryUri": "hugyft56434...." // Used for update ony, registry URI (the regular one, not the entry one) for the update of the file (must follow the rholang-files-module standard)
   }
 }
 ```
