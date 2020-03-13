@@ -57,7 +57,7 @@ To init the `dappy.config.json` file with default values run `npm run dappy:init
     "host": "localhost", // host of the RChain node you want to connect to
     "grpcProposePort": "40402", // port use for proposal (through GRPC), leave it blank if not able to propose
     "httpPort": "40403", // port of the RChain HTTP api
-    "private_key": "abcdef" // ED25519 private key
+    "privateKey": "abcdef" // ED25519 private key
     "registryUri": "hugyft56434...." // Used for update ony, registry URI (the regular one, not the entry one) for the update of the file (must follow the rholang-files-module standard)
   }
 }
@@ -66,6 +66,8 @@ To init the `dappy.config.json` file with default values run `npm run dappy:init
 #### HTML file requirements
 
 #### Import dappy local js/css libraries
+
+Dappy has locally some JS and CSS libraries available. (to be written)
 
 #### Inferred mime types
 

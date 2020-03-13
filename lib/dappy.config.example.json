@@ -13,7 +13,7 @@
     "validatorHost": "http://localhost",
     "validatorHostHttpPort": "40403",
     "validatorHostgrpcProposePort": "40402",
-    "private_key": "Secp256k1 private key, if not provided, a prompt will ask for it",
+    "privateKey": "Secp256k1 private key, if not provided, a prompt will ask for it",
     "registryUri": "Used for update ony, registry URI (the regular one, not the entry one) for the update of the file (must follow the rholang-files-module standard)"
   }
 }
