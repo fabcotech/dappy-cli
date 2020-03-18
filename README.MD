@@ -34,6 +34,7 @@ Dappy will replace the following expression if they are found in the bundled htm
 
 - `PUBLIC_KEY` : replaced by the public key from `dappy.config.json`
 - `REV_ADDRESS` : replaced by the addressed proicessed from the public key
+- `FULL_ADDRESS` : replaced with the full address of the file (`REGSTRY_URI.FILE_ID`)
 - `DAPPY_FILE`: replaced by the content of the created DPY file
 
 You can have a look at the default `push.rho` and see that `DAPPY_FILE` for example is present, to be replaced before the blockchain deployment.
