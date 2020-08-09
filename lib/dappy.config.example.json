@@ -8,10 +8,10 @@
   },
   "options": {
     "platform": "rchain",
-    "readOnlyHost": "http://observer.testnet.rchain.coop",
-    "readOnlyHostHttpPort": "40403",
-    "validatorHost": "http://node2.testnet.rchain-dev.tk",
-    "validatorHostHttpPort": "40403",
+    "readOnlyHost": "https://observer.testnet.rchain.coop",
+    "readOnlyHostHttpPort": "443",
+    "validatorHost": "https://node2.testnet.rchain-dev.tk",
+    "validatorHostHttpPort": "443",
     "validatorHostgrpcProposePort": "40402",
     "privateKey": "Secp256k1 private key, if not provided, a prompt will ask for it",
     "registryUri": "Used for update ony, registry URI (the regular one, not the entry one) for the update of the file (must follow the rholang-files-module standard)"
