@@ -55,11 +55,14 @@ To init the `dappy.config.json` file with default values run `npm run dappy:init
   },
   "options": {
     "platform": "rchain", // leave "rchain" for now since it's the only platform supported
-    "host": "localhost", // host of the RChain node you want to connect to
-    "grpcProposePort": "40402", // port use for proposal (through GRPC), leave it blank if not able to propose
-    "httpPort": "40403", // port of the RChain HTTP api
-    "privateKey": "abcdef" // ED25519 private key
-    "registryUri": "hugyft56434...." // Used for update ony, registry URI (the regular one, not the entry one) for the update of the file (must follow the rholang-files-module standard)
+
+    "readOnlyHost": "http://localhost", // read-only host
+    "readOnlyHostHttpPort": "443", // port for read-only host, 443 for https, 40403 for local
+    "validatorHost": "https://localhost", // validator host
+    "validatorHostHttpPort": "443", // port for validator host, 443 for https, 40403 for local
+    "validatorHostgrpcProposePort": "", // (optional) port for proposal, dappy-cli will try to propose
+    "privateKey": "", // private key to use for deployments
+    "registryUri": "" // registry URI of the deployed file, used in update script
   }
 }
 ```
