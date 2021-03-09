@@ -16,7 +16,7 @@
     "@grpc/grpc-js": "^0.5.3",
     "@grpc/proto-loader": "0.3.0",
     "blakejs": "^1.1.0",
-    "elliptic": "6.5.3",
+    "elliptic": "6.5.4",
     "rchain-toolkit": "0.2.8",
     "rchain-token-files": "fabcotech/rchain-token#adc293753e0e8533477465ca39e26a5669046660",
     "uuid": "3.4.0"
