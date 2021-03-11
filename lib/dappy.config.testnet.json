@@ -12,8 +12,8 @@
     "readOnlyHostHttpPort": "443",
     "validatorHost": "https://node2.testnet.rchain-dev.tk",
     "validatorHostHttpPort": "443",
-    "validatorHostgrpcProposePort": "40402",
     "privateKey": "",
-    "registryUri": ""
+    "registryUri": "",
+    "boxRegistryUri": ""
   }
 }
