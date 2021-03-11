@@ -16,9 +16,9 @@
     "@grpc/grpc-js": "^0.5.3",
     "@grpc/proto-loader": "0.3.0",
     "blakejs": "^1.1.0",
-    "elliptic": "6.5.3",
+    "elliptic": "^6.5.4",
+    "rchain-token": "fabcotech/rchain-token#b861c7f914c7978e3b82eee522d2115a28ea2d39",
     "rchain-toolkit": "0.2.9",
-    "rchain-token": "file:../rchain-token/",
     "uuid": "3.4.0"
   }
 }
