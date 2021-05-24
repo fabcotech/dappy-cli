@@ -11,7 +11,9 @@
     "readOnly": "https://observer.testnet.rchain.coop",
     "validator": "https://node2.testnet.rchain-dev.tk",
     "privateKey": "",
-    "registryUri": "",
-    "boxRegistryUri": ""
+    "masterRegistryUri": "",
+    "contractId": "",
+    "purseId": "",
+    "boxId": ""
   }
 }
