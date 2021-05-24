@@ -1,6 +1,6 @@
 {
   "name": "dappy-cli",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "description": "Node JS cli to upload and update dappy applications to the blockchain",
   "main": "lib/index.js",
   "directories": {},
