@@ -1,7 +1,7 @@
 {
   "name": "dappy-cli",
-  "version": "0.7.0",
-  "description": "Node JS cli to upload and update dappy applications to the blockchain",
+  "version": "8.0.0",
+  "description": "Node JS wrapper to push files/web apps as NFTs on RChain / rchain-token",
   "main": "lib/index.js",
   "directories": {},
   "scripts": {},
@@ -17,7 +17,7 @@
     "@grpc/proto-loader": "0.3.0",
     "blakejs": "^1.1.0",
     "elliptic": "^6.5.4",
-    "rchain-token": "fabcotech/rchain-token#18ce45026b136f20b5d8d144de918c4d05afe694",
+    "rchain-token": "fabcotech/rchain-token#75dbfdc610b36eb7c418adf2aa129290b09f8a74",
     "rchain-toolkit": "0.3.2",
     "uuid": "3.4.0"
   }
