@@ -21,10 +21,7 @@ Scripts to add in your package.json :
 ```json
 {
   "dappy:init": "node ./node_modules/dappy-cli/lib/ init",
-  "dappy:build": "node ./node_modules/dappy-cli/lib/ build",
-  "dappy:push": "node ./node_modules/dappy-cli/lib/ push",
-  "dappy:update": "node ./node_modules/dappy-cli/lib/ update",
-  "dappy:watch": "node ./node_modules/dappy-cli/lib/ update --watch"
+  "dappy:push": "node ./node_modules/dappy-cli/lib/ push"
 }
 ```
 
@@ -32,12 +29,11 @@ Scripts to add in your package.json :
 
 Dappy will replace the following expression if they are found in the bundled html file :
 
+- `MASTER_REGISTRY_URI` : replaced by the master registry URI from `dappy.config.json`
 - `PUBLIC_KEY` : replaced by the public key from `dappy.config.json`
-- `REV_ADDRESS` : replaced by the addressed proicessed from the public key
-- `FULL_ADDRESS` : replaced with the full address of the file (`REGSTRY_URI.FILE_ID`)
+- `FULL_ADDRESS` : replaced with the full address of the file (`CONTRACT_ID.PURSE_ID`)
+- `REV_ADDRESS` : replaced with the REV address (obtained from private key)
 - `DAPPY_FILE`: replaced by the content of the created DPY file
-
-You can have a look at the default `push.rho` and see that `DAPPY_FILE` for example is present, to be replaced before the blockchain deployment.
 
 #### dappy.config.json config file
 
@@ -51,18 +47,16 @@ To init the `dappy.config.json` file with default values run `npm run dappy:init
     "title": "My dapp", // This will only be used as the title of the .dpy file
     "jsPath": "dist/bundle.min.js", // path of your main application js file
     "cssPath": "dist/bundle.min.css" // path of your main application css file
-    "fileId": "cool" // file ID (rholang-files-module), address will be registry_uri.file_id
   },
   "options": {
-    "platform": "rchain", // leave "rchain" for now since it's the only platform supported
-
-    "readOnlyHost": "http://localhost", // read-only host
-    "readOnlyHostHttpPort": "443", // port for read-only host, 443 for https, 40403 for local
-    "validatorHost": "https://localhost", // validator host
-    "validatorHostHttpPort": "443", // port for validator host, 443 for https, 40403 for local
-    "validatorHostgrpcProposePort": "", // (optional) port for proposal, dappy-cli will try to propose
+    "platform": "rchain", // leave "rchain"
+    "readOnly": "https://observer.testnet.rchain.coop", // url of the read-only node
+    "validator": "https://node2.testnet.rchain.coop", // url of the validator node
     "privateKey": "", // private key to use for deployments
-    "registryUri": "" // registry URI of the deployed file, used in update script
+    "masterRegistryUri": "aaa", // rchain-token master registry URI
+    "contractId": "mycontract", // rchain-token contract ID
+    "purseId": "index", // rchain-token purse ID
+    "boxId": "mybox" // rchain-token box ID
   }
 }
 ```

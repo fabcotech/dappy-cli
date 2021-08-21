@@ -3,8 +3,7 @@
     "title": "My dapp",
     "jsPath": "dist/bundle.js",
     "cssPath": "dist/bundle.css",
-    "htmlPath": "dist/bundle.html",
-    "fileId": "index"
+    "htmlPath": "dist/bundle.html"
   },
   "options": {
     "platform": "rchain",
