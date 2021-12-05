@@ -1,6 +1,6 @@
 {
   "name": "dappy-cli",
-  "version": "14.0.2",
+  "version": "15.0.0",
   "description": "Node JS wrapper to push files/web apps as NFTs on RChain / rchain-token",
   "main": "lib/index.js",
   "directories": {},
@@ -17,8 +17,8 @@
     "@grpc/proto-loader": "0.6.5",
     "blakejs": "^1.1.0",
     "elliptic": "^6.5.4",
-    "rchain-token": "fabcotech/rchain-token#14.0.2",
-    "rchain-toolkit": "0.3.4",
+    "rchain-token": "fabcotech/rchain-token#15.0.0",
+    "rchain-toolkit": "0.4.1",
     "uuid": "3.4.0"
   }
 }
