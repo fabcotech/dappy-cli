@@ -1,6 +1,6 @@
 {
   "name": "dappy-cli",
-  "version": "15.0.2",
+  "version": "15.0.3",
   "description": "Node JS wrapper to push files/web apps as NFTs on RChain / rchain-token",
   "main": "lib/index.js",
   "directories": {},
