@@ -1,10 +1,18 @@
-## dappy-cli
+## Dappy CLI
 
-Node JS cli to build and push dappy dapps to the RChain blockchain.
+NodeJS utility to publish dapp and manage records in the dappy name system
+
+**What are record, and what is the dappy name system ?**
+
+The dappy name system is an alternative to the DNS, that is powered by the blockchain and a powerful, trustless co-resolution system that make it very secure, resilient and accurate. A record is simply an Top Level Domain / TLD entry in the dappy name system.
+
+**What are dapps in a dappy context ?**
 
 Dappy dapps are unique web applications, they are stored on the blockchain and loaded in the browser using a trustless co-resolution mechanism, making them very secure and censorship resistant.
 
 Dapps are pushed as NFT in a NFT contract from rchain-token. The address `contractId.purseId` must then be referenced in a record to be loaded a dappy compatible browser.
+
+[fabco.gitbook.io/dappy-spec](https://fabco.gitbook.io/dappy-spec/) will provide you with more context.
 
 #### installation
 
@@ -19,9 +27,80 @@ Scripts to add in your package.json :
 ```json
 {
   "dappy:init": "dappy-cli init",
-  "dappy:push": "dappy-cli push"
+  "dappy:push": "dappy-cli pushdapp",
+  "dappy:pushrecord": "dappy-cli pushrecord"
 }
 ```
+
+Or with npx
+
+```sh
+npx dappy-cli init
+npx dappy-cli pushdapp
+npx dappy-cli pushrecord
+```
+
+### General configuration
+
+```javascript
+{
+  ...
+  "options": {
+    "platform": "rchain", // leave "rchain"
+    "readOnly": "https://observer.testnet.rchain.coop", // url of the read-only node
+    "validator": "https://node2.testnet.rchain.coop", // url of the validator node
+    "masterRegistryUri": "aaa", // rchain-token master registry URI
+    "privateKey": "", // private key to use for deployments OR path to a text file
+    "boxId": "mybox" // rchain-token box ID
+
+    // only used for pushdapp
+    "contractId": "mycontract", // rchain-token contract ID
+    "purseId": "index", // rchain-token purse ID
+
+    // only used for pushrecord
+    "nameSystemContractId": "dappynamesystem", // rchain-token contract ID of the name system NFT contract²
+  }
+  ...
+}
+```
+
+### Records in the dappy name system
+
+In dappy, records are the entry of the dappy name system, Amazon own `amazon.com` in the DNS, and they will own `amazon` record in the dappy name system.
+
+Managing a record is done through the `dappy.config.json` file. You can do `npm run dappy:init` command to have a template file.
+
+```javascript
+{
+  ...
+  "record": {
+    // the TLD you want to own in the dappy name system.
+    "id": "amazoon"
+    // values or an IP app
+    "values": [{
+      "value": "192.168.0.1",
+      "kind": "IPv4"
+    }],
+    // values for a dapp
+    "values": [{
+      "value": "mynftcontract.mypage",
+      "kind": "dapp"
+    }],
+    // ca is a list of base64 certificate linked to the TLD, it will often
+    // contain only one certificate, it may or may not be self signed
+    "ca": ["123456789ABCDEF"]
+  }
+  ...
+}
+```
+
+Check your `config.options` and run the following script to book or update your record.
+
+```sh
+npx dappy-cli pushrecord
+```
+
+### Dapps, or blockchain web applications
 
 ##### Value replacement before push
 
@@ -40,20 +119,18 @@ To init the `dappy.config.json` file with default values run `npm run dappy:init
 
 ```javascript
 {
+  ...,
   "dapp": {
     "html": "dist/dapp.html", // This will only be used as the title of the .dpy file
     "js": "dist/bundle.min.js", // path of your main application js file
     "css": "dist/bundle.min.css" // path of your main application css file
   },
-  "options": {
-    "platform": "rchain", // leave "rchain"
-    "readOnly": "https://observer.testnet.rchain.coop", // url of the read-only node
-    "validator": "https://node2.testnet.rchain.coop", // url of the validator node
-    "privateKey": "", // private key to use for deployments, or path to a file
-    "masterRegistryUri": "aaa", // rchain-token master registry URI
-    "contractId": "mycontract", // rchain-token contract ID
-    "purseId": "index", // rchain-token purse ID
-    "boxId": "mybox" // rchain-token box ID
-  }
+  ...
 }
+```
+
+Check your `config.options` and run the following script to book or update your record.
+
+```sh
+npx dappy-cli pushdapp
 ```

@@ -1,4 +1,12 @@
 {
+  "record": {
+    "id": "myrecord",
+    "values": [{
+      "value": "192.168.0.1",
+      "kind": "IPv4"
+    }],
+    "ca": ["123456789ABCDEF"]
+  },
   "dapp": {
     "js": "dist/bundle.js",
     "css": "dist/bundle.css",
@@ -8,10 +16,11 @@
     "platform": "rchain",
     "readOnly": "https://observer.testnet.rchain.coop",
     "validator": "https://node2.testnet.rchain-dev.tk",
-    "privateKey": "",
     "masterRegistryUri": "",
+    "boxId": "",
+    "privateKey": "",
     "contractId": "",
-    "purseId": "",
-    "boxId": ""
+    "nameSystemContractId": "",
+    "purseId": ""
   }
 }
