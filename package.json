@@ -1,6 +1,6 @@
 {
   "name": "dappy-cli",
-  "version": "16.2.0",
+  "version": "16.3.0",
   "description": "NodeJS utility to publish dapp and manage records in the dappy name system",
   "main": "lib/index.js",
   "bin": {

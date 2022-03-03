@@ -42,7 +42,10 @@ npx dappy-cli pushrecord
 
 ### General configuration
 
+General configuration must be in a `dappy.config.json` file. You can initiate a template with `npx dappy-cli init` command.
+
 ```javascript
+// dappy.config.json
 {
   ...
   "options": {
@@ -71,15 +74,19 @@ In dappy, records are the entry of the dappy name system, Amazon own `amazon.com
 Managing a record is done through the `dappy.config.json` file. You can do `npm run dappy:init` command to have a template file.
 
 ```javascript
+// dappy.config.json
 {
   ...
   "record": {
     // the TLD you want to own in the dappy name system.
     "id": "amazoon"
-    // values or an IP app
+    // values or an IP app / TLS website
     "values": [{
       "value": "192.168.0.1",
       "kind": "IPv4"
+    }, {
+      "value": "LS0tLS1CRUdJTiBD=",
+      "kind": "caCert"
     }],
     // values for a dapp
     "values": [{
@@ -100,6 +107,18 @@ Check your `config.options` and run the following script to book or update your 
 npx dappy-cli pushrecord
 ```
 
+Run the following scripts to know the minimal configuration for Apache or NGINX on your web server
+
+```sh
+# nginx
+node index.js nginx
+node index.js nginx --commands
+
+# apache
+node index.js apache
+node index.js apache --commands
+```
+
 ### Dapps, or blockchain web applications
 
 ##### Value replacement before push
@@ -118,6 +137,7 @@ This file defines some properties of your dappy application, the ressources you'
 To init the `dappy.config.json` file with default values run `npm run dappy:init`.
 
 ```javascript
+// dappy.config.json
 {
   ...,
   "dapp": {

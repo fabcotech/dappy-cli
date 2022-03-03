@@ -4,8 +4,10 @@
     "values": [{
       "value": "192.168.0.1",
       "kind": "IPv4"
-    }],
-    "ca": ["123456789ABCDEF"]
+    }, {
+      "value": "LS0tLS1CRUdJTiBD=",
+      "kind": "caCert"
+    }]
   },
   "dapp": {
     "js": "dist/bundle.js",
