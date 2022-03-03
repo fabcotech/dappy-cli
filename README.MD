@@ -107,16 +107,17 @@ Check your `config.options` and run the following script to book or update your 
 npx dappy-cli pushrecord
 ```
 
-Run the following scripts to know the minimal configuration for Apache or NGINX on your web server
+Run the following scripts to know the minimal configuration
+for Apache or NGINX on your web server
 
 ```sh
 # nginx
-node index.js nginx
-node index.js nginx --commands
+npx dappy-cli nginx
+npx dappy-cli nginx --commands
 
 # apache
-node index.js apache
-node index.js apache --commands
+npx dappy-cli apache
+npx dappy-cli apache --commands
 ```
 
 ### Dapps, or blockchain web applications
