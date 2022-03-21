@@ -13,7 +13,7 @@
             ],
             "program": "${workspaceFolder}/lib/index.js",
             "args": [
-                "pushrecord"
+                "pushzones"
             ]
         }
     ]

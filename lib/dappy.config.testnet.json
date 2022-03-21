@@ -1,13 +1,19 @@
 {
-  "record": {
-    "id": "myrecord",
-    "values": [{
-      "value": "192.168.0.1",
-      "kind": "IPv4"
-    }, {
-      "value": "LS0tLS1CRUdJTiBD=",
-      "kind": "caCert"
-    }]
+  "zones": {
+    "origin": "myrecord",
+    "ttl": 3600,
+    "records": [
+      {
+        "name": "",
+        "type": "A",
+        "data": "192.168.0.1"
+      },
+      {
+        "name": "",
+        "type": "CERT",
+        "data": "LS0tLS1CRUdJTiBD="
+      }
+    ]
   },
   "dapp": {
     "js": "dist/bundle.js",

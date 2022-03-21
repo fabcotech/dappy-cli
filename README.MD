@@ -1,6 +1,6 @@
 ## Dappy CLI
 
-NodeJS utility to publish dapp and manage records in the dappy name system
+NodeJS utility to publish dapp and manage zone and records in the dappy name system
 
 **What are record, and what is the dappy name system ?**
 
@@ -28,7 +28,7 @@ Scripts to add in your package.json :
 {
   "dappy:init": "dappy-cli init",
   "dappy:push": "dappy-cli pushdapp",
-  "dappy:pushrecord": "dappy-cli pushrecord"
+  "dappy:pushzones": "dappy-cli pushzones"
 }
 ```
 
@@ -37,7 +37,7 @@ Or with npx
 ```sh
 npx dappy-cli init
 npx dappy-cli pushdapp
-npx dappy-cli pushrecord
+npx dappy-cli pushzones
 ```
 
 ### General configuration
@@ -60,51 +60,53 @@ General configuration must be in a `dappy.config.json` file. You can initiate a 
     "contractId": "mycontract", // rchain-token contract ID
     "purseId": "index", // rchain-token purse ID
 
-    // only used for pushrecord
+    // only used for pushzones
     "nameSystemContractId": "dappynamesystem", // rchain-token contract ID of the name system NFT contract²
   }
   ...
 }
 ```
 
-### Records in the dappy name system
+### Zones and records in the dappy name system
 
 In dappy, records are the entry of the dappy name system, Amazon own `amazon.com` in the DNS, and they will own `amazon` record in the dappy name system.
 
-Managing a record is done through the `dappy.config.json` file. You can do `npm run dappy:init` command to have a template file.
+Managing a zone and its records is done through the `dappy.config.json` file. You can do `npm run dappy:init` command to have a template file.
 
 ```javascript
 // dappy.config.json
 {
   ...
-  "record": {
-    // the TLD you want to own in the dappy name system.
-    "id": "amazoon"
-    // values or an IP app / TLS website
-    "values": [{
-      "value": "192.168.0.1",
-      "kind": "IPv4"
-    }, {
-      "value": "LS0tLS1CRUdJTiBD=",
-      "kind": "caCert"
-    }],
-    // values for a dapp
-    "values": [{
-      "value": "mynftcontract.mypage",
-      "kind": "dapp"
-    }],
-    // ca is a list of base64 certificate linked to the TLD, it will often
-    // contain only one certificate, it may or may not be self signed
-    "ca": ["123456789ABCDEF"]
+  "zones" {
+      // the TLD you want to own in the dappy name system.
+      "origin": "example",
+      "ttl": 3600,
+      "records": [
+        // values or an IP app / TLS website
+        {
+          "name": "",
+          "type": "A",
+          "data": "127.0.0.1"
+        },
+        {
+          "name": "",
+          "type": "CERT",
+          "data": "LS0tLS1CRUdJTiBD="
+        },
+        // values for a DAPP
+        {
+          "name": "mynftcontract.mypage",
+          "type": "DAPP"
+        }
+      ]
   }
-  ...
 }
 ```
 
-Check your `config.options` and run the following script to book or update your record.
+Check your `config.options` and run the following script to book or update your zone.
 
 ```sh
-npx dappy-cli pushrecord
+npx dappy-cli pushzones
 ```
 
 Run the following scripts to know the minimal configuration
@@ -150,7 +152,7 @@ To init the `dappy.config.json` file with default values run `npm run dappy:init
 }
 ```
 
-Check your `config.options` and run the following script to book or update your record.
+Check your `config.options` and run the following script to book or update your dapp.
 
 ```sh
 npx dappy-cli pushdapp
