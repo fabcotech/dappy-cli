@@ -28,7 +28,8 @@
   "dependencies": {
     "blakejs": "^1.1.0",
     "elliptic": "^6.5.4",
-    "rchain-token": "fabcotech/rchain-token#16.0.0",
+    "pem": "^1.14.6",
+    "rchain-token": "file:../rchain-token/",
     "rchain-toolkit": "0.4.5"
   },
   "devDependencies": {
