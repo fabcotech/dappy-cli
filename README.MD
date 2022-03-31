@@ -22,27 +22,20 @@ npm install dappy-cli
 
 #### scripts
 
-Scripts to add in your package.json :
-
-```json
-{
-  "dappy:init": "dappy-cli init",
-  "dappy:push": "dappy-cli pushdapp",
-  "dappy:pushzones": "dappy-cli pushzones"
-}
-```
-
-Or with npx
+npx provides the following commands
 
 ```sh
 npx dappy-cli init
 npx dappy-cli pushdapp
 npx dappy-cli pushzones
+npx dappy-cli nginx --host x.dappy
+npx dappy-cli apache --host x.dappy
+npx dappy-cli generatecert --host x.dappy
 ```
 
-### General configuration
+### Configuration of the options
 
-General configuration must be in a `dappy.config.json` file. You can initiate a template with `npx dappy-cli init` command.
+Options configuration must be in a `dappy.config.json` file. You can initiate a template with `npx dappy-cli init` command.
 
 ```javascript
 // dappy.config.json
@@ -53,7 +46,7 @@ General configuration must be in a `dappy.config.json` file. You can initiate a 
     "readOnly": "https://observer.testnet.rchain.coop", // url of the read-only node
     "validator": "https://node2.testnet.rchain.coop", // url of the validator node
     "masterRegistryUri": "aaa", // rchain-token master registry URI
-    "privateKey": "", // private key to use for deployments OR path to a text file
+    "privateKey": ".privatekey", // private key to use for deployments OR path to a text file
     "boxId": "mybox" // rchain-token box ID
 
     // only used for pushdapp
@@ -69,22 +62,22 @@ General configuration must be in a `dappy.config.json` file. You can initiate a 
 
 ### Zones and records in the dappy name system
 
-In dappy, records are the entry of the dappy name system, Amazon own `amazon.com` in the DNS, and they will own `amazon` record in the dappy name system.
+In dappy, records are the entry of the dappy name system, Amazon own `amazon.com` in the DNS, and they will own `amazon.dappy` record in the dappy name system.
 
-Managing a zone and its records is done through the `dappy.config.json` file. You can do `npm run dappy:init` command to have a template file.
+Managing a zone and its records is done through the `dappy.config.json` file. You can do `npx dappy-cli init` command to have an example file for the `helloworld.dappy` IP application.
 
 ```javascript
 // dappy.config.json
 {
   ...
-  "zones" {
+  "zones": [{
       // the TLD you want to own in the dappy name system.
       "origin": "example",
       "ttl": 3600,
       "records": [
         // values or an IP app / TLS website
         {
-          "name": "",
+          "name": "@",
           "type": "A",
           "data": "127.0.0.1"
         },
@@ -99,7 +92,7 @@ Managing a zone and its records is done through the `dappy.config.json` file. Yo
           "type": "DAPP"
         }
       ]
-  }
+  }]
 }
 ```
 
@@ -109,17 +102,28 @@ Check your `config.options` and run the following script to book or update your 
 npx dappy-cli pushzones
 ```
 
-Run the following scripts to know the minimal configuration
-for Apache or NGINX on your web server
+#### helloworld.dappy IP application (dev)
+
+If you want to setup the helloworld.dappy example just push the default zones, and run the helloworld web server with Deploy your zone using [dappy-node](https://github.com/fabcotech/dappy-node).
+
+### Nginx and Apache configurations
+
+If you are deploying an IP application you'll need a TLS certificate, dappy-cli can help you generate one (it uses `pem` npm library).
+
+```sh
+npx dappy-cli generatecert --host x.dappy
+```
+
+Run the following scripts to output the minimal configuration for Apache or NGINX on your web server.
 
 ```sh
 # nginx
-npx dappy-cli nginx
-npx dappy-cli nginx --commands
+npx dappy-cli nginx --host x.dappy
+npx dappy-cli nginx --host x.dappy --commands
 
 # apache
-npx dappy-cli apache
-npx dappy-cli apache --commands
+npx dappy-cli apache --host x.dappy
+npx dappy-cli apache --host x.dappy --commands
 ```
 
 ### Dapps, or blockchain web applications
@@ -135,9 +139,9 @@ Dappy will replace the following expression if they are found in the bundled htm
 
 #### dappy.config.json config file
 
-This file defines some properties of your dappy application, the ressources you'll need like JS or CSS libraries, and finally the path of your app's ressources (main JS and CSS files).
+This file defines some properties of your dappy application, the ressources you'll need like JS or CSS libraries, and finally the path of your app's ressources (javascript and stylesheets).
 
-To init the `dappy.config.json` file with default values run `npm run dappy:init`.
+To init the `dappy.config.json` file with default values run `npx dappy-cli init`.
 
 ```javascript
 // dappy.config.json
