@@ -27,6 +27,7 @@
   "homepage": "https://github.com/fabcotech/dappy-cli",
   "dependencies": {
     "blakejs": "^1.1.0",
+    "dotenv": "^16.0.0",
     "elliptic": "^6.5.4",
     "pem": "^1.14.6",
     "rchain-token": "file:../rchain-token/",
