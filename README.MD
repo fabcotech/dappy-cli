@@ -17,7 +17,7 @@ Dapps are pushed as NFT in a NFT contract from rchain-token. The address `contra
 #### installation
 
 ```
-npm install dappy-cli
+npm install @fabcotech/dappy-cli
 ```
 
 #### scripts
@@ -25,17 +25,17 @@ npm install dappy-cli
 npx provides the following commands
 
 ```sh
-npx dappy-cli init
-npx dappy-cli pushdapp
-npx dappy-cli pushzones
-npx dappy-cli nginx --host x.dappy
-npx dappy-cli apache --host x.dappy
-npx dappy-cli generatecert --host x.dappy
+npx @fabcotech/dappy-cli init
+npx @fabcotech/dappy-cli pushdapp
+npx @fabcotech/dappy-cli pushzones
+npx @fabcotech/dappy-cli nginx --host x.dappy
+npx @fabcotech/dappy-cli apache --host x.dappy
+npx @fabcotech/dappy-cli generatecert --host x.dappy
 ```
 
 ### Configuration of the options
 
-Options configuration must be in a `dappy.config.json` file. You can initiate a template with `npx dappy-cli init` command.
+Options configuration must be in a `dappy.config.json` file. You can initiate a template with `npx @fabcotech/dappy-cli init` command.
 
 ```javascript
 // dappy.config.json
@@ -64,7 +64,7 @@ Options configuration must be in a `dappy.config.json` file. You can initiate a 
 
 In dappy, records are the entry of the dappy name system, Amazon own `amazon.com` in the DNS, and they will own `amazon.dappy` record in the dappy name system.
 
-Managing a zone and its records is done through the `dappy.config.json` file. You can do `npx dappy-cli init` command to have an example file for the `helloworld.dappy` IP application.
+Managing a zone and its records is done through the `dappy.config.json` file. You can do `npx @fabcotech/dappy-cli init` command to have an example file for the `helloworld.dappy` IP application.
 
 ```javascript
 // dappy.config.json
@@ -99,7 +99,7 @@ Managing a zone and its records is done through the `dappy.config.json` file. Yo
 Check your `config.options` and run the following script to book or update your zone.
 
 ```sh
-npx dappy-cli pushzones
+npx @fabcotech/dappy-cli pushzones
 ```
 
 #### helloworld.dappy IP application (dev)
@@ -111,19 +111,19 @@ If you want to setup the helloworld.dappy example just push the default zones, a
 If you are deploying an IP application you'll need a TLS certificate, dappy-cli can help you generate one (it uses `pem` npm library).
 
 ```sh
-npx dappy-cli generatecert --host x.dappy
+npx @fabcotech/dappy-cli generatecert --host x.dappy
 ```
 
 Run the following scripts to output the minimal configuration for Apache or NGINX on your web server.
 
 ```sh
 # nginx
-npx dappy-cli nginx --host x.dappy
-npx dappy-cli nginx --host x.dappy --commands
+npx @fabcotech/dappy-cli nginx --host x.dappy
+npx @fabcotech/dappy-cli nginx --host x.dappy --commands
 
 # apache
-npx dappy-cli apache --host x.dappy
-npx dappy-cli apache --host x.dappy --commands
+npx @fabcotech/dappy-cli apache --host x.dappy
+npx @fabcotech/dappy-cli apache --host x.dappy --commands
 ```
 
 ### Dapps, or blockchain web applications
@@ -159,5 +159,5 @@ To init the `dappy.config.json` file with default values run `npx dappy-cli init
 Check your `config.options` and run the following script to book or update your dapp.
 
 ```sh
-npx dappy-cli pushdapp
+npx @fabcotech/dappy-cli pushdapp
 ```
