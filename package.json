@@ -1,6 +1,6 @@
 {
   "name": "@fabcotech/dappy-cli",
-  "version": "16.5.0",
+  "version": "16.6.0",
   "description": "NodeJS utility to manage zones/records in the dappy name system, or publish dapps (100% onchain web applications)",
   "main": "lib/index.js",
   "bin": {
