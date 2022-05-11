@@ -30,7 +30,7 @@ npx @fabcotech/dappy-cli pushdapp
 npx @fabcotech/dappy-cli pushzones
 npx @fabcotech/dappy-cli nginx --host x.dappy
 npx @fabcotech/dappy-cli apache --host x.dappy
-npx @fabcotech/dappy-cli generatecert --host x.dappy
+npx @fabcotech/dappy-cli generateselfsignedcert --host x.dappy
 ```
 
 ### Configuration of the options
@@ -111,7 +111,7 @@ If you want to setup the helloworld.dappy example just push the default zones, a
 If you are deploying an IP application you'll need a TLS certificate, dappy-cli can help you generate one (it uses `pem` npm library).
 
 ```sh
-npx @fabcotech/dappy-cli generatecert --host x.dappy
+npx @fabcotech/dappy-cli generateselfsignedcert --host x.dappy
 ```
 
 Run the following scripts to output the minimal configuration for Apache or NGINX on your web server.
