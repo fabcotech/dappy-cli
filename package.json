@@ -30,7 +30,7 @@
     "dotenv": "^16.0.0",
     "elliptic": "^6.5.4",
     "pem": "^1.14.6",
-    "@fabcotech/rchain-token": "16.0.2",
+    "@fabcotech/rchain-token": "17.0.3",
     "@fabcotech/rchain-toolkit": "^2.0.0"
   },
   "devDependencies": {
