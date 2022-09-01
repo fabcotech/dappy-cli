@@ -23,15 +23,7 @@
     "css": "dist/bundle.min.css"
   },
   "options": {
-    "platform": "rchain",
-    "readOnly": "http://localhost:40403",
-    "validator": "http://localhost:40403",
-    "shardId": "dev",
-    "masterRegistryUri": "",
-    "boxId": "",
     "privateKey": "",
-    "contractId": "",
-    "nameSystemContractId": "",
-    "purseId": ""
+    "dappyNetwork": "d"
   }
 }
