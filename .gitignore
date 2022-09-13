@@ -65,3 +65,9 @@ lib/dappyNetwork.js
 **/*.jpg
 **/*.png
 **/*.dpy
+
+
+dappy.config.json
+dappyNetwork.json
+
+dappyrc*
