@@ -25,7 +25,7 @@
   "license": "MIT",
   "homepage": "https://github.com/fabcotech/dappy-cli",
   "dependencies": {
-    "@fabcotech/dappy-lookup": "^2.2.3",
+    "@fabcotech/dappy-lookup": "^2.3.1",
     "@fabcotech/gossip": "^1.0.0",
     "@fabcotech/rchain-token": "18.0.1",
     "@fabcotech/rchain-toolkit": "^3.0.1",
