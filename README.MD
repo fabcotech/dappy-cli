@@ -14,5 +14,5 @@ npx @fabcotech/dappy-cli generateprivatekey
 npx @fabcotech/dappy-cli printpublickey
 npx @fabcotech/dappy-cli pushzones
 npx @fabcotech/dappy-cli check
-npx @fabcotech/dappy-cli helloworldserver
+npx @fabcotech/dappy-cli helloworldserver --cert mydomain.crt --key mydomain.key
 ```
