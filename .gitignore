@@ -71,6 +71,6 @@ lib/*.key
 
 
 dappy.config.json
-dappyNetwork.json
 
+dappyNetwork.*json
 dappyrc*
