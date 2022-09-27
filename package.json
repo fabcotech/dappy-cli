@@ -25,15 +25,15 @@
   "license": "MIT",
   "homepage": "https://github.com/fabcotech/dappy-cli",
   "dependencies": {
-    "@fabcotech/dappy-lookup": "^2.3.5",
+    "@fabcotech/dappy-lookup": "^2.3.6",
     "@fabcotech/gossip": "^1.0.0",
     "@fabcotech/rchain-token": "18.0.1",
     "@fabcotech/rchain-toolkit": "^3.0.1",
     "blakejs": "^1.1.0",
     "dotenv": "^16.0.0",
     "elliptic": "^6.5.4",
-    "pem": "^1.14.6",
-    "lodash.isequal": "^4.5.0"
+    "lodash.isequal": "^4.5.0",
+    "pem": "^1.14.6"
   },
   "devDependencies": {
     "eslint": "^8.11.0",
