@@ -1,5 +1,8 @@
-lib/dappyNetwork.js
 lib/dappy.config.json
+lib/dappy.config*
+lib/dappyNetwork.js
+lib/*.crt
+lib/*.key
 **/*.jpg
 **/*.png
 **/*.dpy
