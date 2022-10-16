@@ -12,7 +12,36 @@ TODO : link to the dappy docs here
 npx @fabcotech/dappy-cli init
 npx @fabcotech/dappy-cli generateprivatekey
 npx @fabcotech/dappy-cli printpublickey
-npx @fabcotech/dappy-cli pushzones
+```
+
+Checking if `dappy.config.json` is up to date with remote blockchain (dappy network) state.
+
+```
 npx @fabcotech/dappy-cli check
-npx @fabcotech/dappy-cli helloworldserver --cert mydomain.crt --key mydomain.key
+```
+
+Update all the zones that need to be updated
+
+```
+npx @fabcotech/dappy-cli pushzones
+```
+
+Generating key pairs (openssl must be installed)
+
+```
+# Generate a key pair (cert + key) for all hosts (A or AAAA) inside a domain
+npx @fabcotech/dappy-cli generatecerts --domain example.gamma
+
+# Generate a key pair (cert + key) for arbitrary hosts
+npx @fabcotech/dappy-cli generatecerts --hosts example.gamma foo.example.gamma another.gamma
+```
+
+Apply a CERT record to `dappy.config.json`.
+
+```
+# Apply to all hosts (A or AAAA record) inside a domain
+npx @fabcotech/dappy-cli apply --cert group1.crt --domain example.gamma
+
+# Apply to specific hosts
+npx @fabcotech/dappy-cli apply --cert group1.crt --hosts example.gamma foo.example.gamma another.gamma
 ```
