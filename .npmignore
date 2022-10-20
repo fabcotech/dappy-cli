@@ -6,3 +6,6 @@ lib/*.key
 **/*.jpg
 **/*.png
 **/*.dpy
+*.key
+*.crt
+*.txt

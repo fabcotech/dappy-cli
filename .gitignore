@@ -68,7 +68,8 @@ lib/*.key
 **/*.jpg
 **/*.png
 **/*.dpy
-
+*.key
+*.crt
 
 dappy.config.json
 
