@@ -60,6 +60,7 @@ typings/
 # next.js build output
 .next
 
+lib/dappyNetwork*
 lib/dappy.config.json
 lib/dappy.config*
 lib/dappyNetwork.js
