@@ -4,7 +4,7 @@ NodeJS utility to publish dapp and manage zone and records in the dappy name sys
 
 Commands and workflow are explained in the dappy documentation.
 
-TODO : link to the dappy docs here
+[docs.dappy.tech](https://docs.dappy.tech/)
 
 ### Commands
 
@@ -17,13 +17,13 @@ npx @fabcotech/dappy-cli printpublickey
 Checking if `dappy.config.json` is up to date with remote blockchain (dappy network) state.
 
 ```
-npx @fabcotech/dappy-cli check
+npx @fabcotech/dappy-cli status
 ```
 
 Update all the zones that need to be updated
 
 ```
-npx @fabcotech/dappy-cli pushzones
+npx @fabcotech/dappy-cli push
 ```
 
 Generating key pairs (openssl must be installed)
@@ -33,7 +33,7 @@ Generating key pairs (openssl must be installed)
 npx @fabcotech/dappy-cli generatecerts --domain example.gamma
 
 # Generate a key pair (cert + key) for arbitrary hosts
-npx @fabcotech/dappy-cli generatecerts --hosts example.gamma foo.example.gamma another.gamma
+npx @fabcotech/dappy-cli generatecerts --hosts example.gamma+foo.example.gamma+another.gamma
 ```
 
 Apply a CERT record to `dappy.config.json`.
@@ -43,5 +43,5 @@ Apply a CERT record to `dappy.config.json`.
 npx @fabcotech/dappy-cli apply --cert group1.crt --domain example.gamma
 
 # Apply to specific hosts
-npx @fabcotech/dappy-cli apply --cert group1.crt --hosts example.gamma foo.example.gamma another.gamma
+npx @fabcotech/dappy-cli apply --cert group1.crt --hosts example.gamma+foo.example.gamma+another.gamma
 ```
