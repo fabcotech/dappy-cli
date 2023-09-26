@@ -1,4 +1,4 @@
-## Dappy CLI
+![dappy cli large image](https://raw.githubusercontent.com/fabcotech/dappy-cli/master/assets/dappycli.jpg)
 
 NodeJS utility to publish dapp and manage zone and records in the dappy name system
 
