@@ -1,6 +1,6 @@
 {
   "name": "@fabcotech/dappy-cli",
-  "version": "17.9.9",
+  "version": "18.0.0",
   "description": "Command line interface to manage domains, subdomains and TLS certificates in the dappy name system",
   "main": "lib/index.js",
   "bin": {
