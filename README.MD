@@ -1,8 +1,8 @@
 ![dappy cli large image](https://raw.githubusercontent.com/fabcotech/dappy-cli/master/assets/dappycli.jpg)
 
-Command line interface written in nodeJS that helps you manage a zone in the dappy name system. You can add new TLS certificates (self-signed, no CA), domain names, subdomains and TXT records, vizualize all of your domains in a tree like fashionand much more !
+Command line interface written in nodeJS that helps you manage a zone in the dappy name system. You can add new TLS certificates (self-signed, no CA), domain names, subdomains and TXT records, vizualize all of your domains in a tree like fashion and much more !
 
-Commands and workflow are explained in the [dappy documentation](https://docs.dappy.tech/). You may obtain production domains at [app.dappy.tech](https://app.dappy.tech/), and test fomains for free at [gamma.dappy.tech/now](https://gamma.dappy.tech/now).
+Commands and workflow are explained in the [dappy documentation](https://docs.dappy.tech/). You may obtain production domains at [app.dappy.tech](https://app.dappy.tech/), and test domains for free at [gamma.dappy.tech/now](https://gamma.dappy.tech/now).
 
 ### Commands
 
