@@ -1,10 +1,8 @@
 ![dappy cli large image](https://raw.githubusercontent.com/fabcotech/dappy-cli/master/assets/dappycli.jpg)
 
-NodeJS utility to publish dapp and manage zone and records in the dappy name system
+Command line interface written in nodeJS that helps you manage a zone in the dappy name system. You can add new TLS certificates (self-signed, no CA), domain names, subdomains and TXT records, vizualize all of your domains in a tree like fashionand much more !
 
-Commands and workflow are explained in the dappy documentation.
-
-[docs.dappy.tech](https://docs.dappy.tech/)
+Commands and workflow are explained in the [dappy documentation](https://docs.dappy.tech/). You may obtain production domains at [app.dappy.tech](https://app.dappy.tech/), and test fomains for free at [gamma.dappy.tech/now](https://gamma.dappy.tech/now).
 
 ### Commands
 
